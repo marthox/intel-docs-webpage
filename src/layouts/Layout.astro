@@ -1,19 +1,12 @@
 ---
 import "@styles/reset.css";
 
-import * as contentful from "contentful";
-
 import Navbar from "@components/Navbar.astro";
 import Footer from "@components/Footer.astro";
 
-const client = contentful.createClient({
-    space: "SPACE ID HERE",
-    accessToken: "ACCESS TOKEN HERE",
-});
+import { getPageColors } from "@utils/contentful_utils";
 
-const vars = await client
-    .getEntry("ENTRY ID HERE")
-    .then((entry) => entry.fields.pageColors as Record<string, any>);
+const vars = getPageColors();
 
 interface Props {
     title: string;

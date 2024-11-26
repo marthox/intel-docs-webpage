@@ -9,6 +9,7 @@
             "@content/*": ["src/content/*"],
             "@assets/*": ["src/assets/*"],
             "@styles/*": ["src/styles/*"],
+            "@interfaces/*": ["src/interfaces/*"],
             "@utils/*": ["src/utils/*"],
             "@i18n/*": ["src/i18n/*"]
         }
