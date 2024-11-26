@@ -1,50 +1,79 @@
 ---
+import "@styles/reset.css";
+
+import * as contentful from "contentful";
+
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro";
+
+const client = contentful.createClient({
+    space: "SPACE ID HERE",
+    accessToken: "ACCESS TOKEN HERE",
+});
+
+const vars = await client
+    .getEntry("ENTRY ID HERE")
+    .then((entry) => entry.fields.pageColors as Record<string, any>);
+
 interface Props {
-	title: string;
+    title: string;
+    lang: string;
 }
 
-const { title } = Astro.props;
+const { title, lang } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={lang}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <Navbar />
+        <slot />
+        <Footer />
+    </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+<style is:global define:vars={vars}>
+    /* Classes */
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        margin-left: 20vw;
+        margin-right: 20vw;
+    }
+    /* Elements */
+    body {
+        background-color: var(--primaryColorOne);
+        font-family: "Courier New", Courier, monospace;
+    }
+    h1 {
+        font-size: 2.6rem;
+        color: var(--primaryColorOne);
+    }
+    h2 {
+        font-size: 2rem;
+        color: var(--primaryColorOne);
+    }
+    h3 {
+        font-size: 1.6rem;
+        color: var(--primaryColorOne);
+    }
+    p {
+        font-size: 1.3rem;
+        color: var(--primaryColorOne);
+        word-spacing: 0.1rem;
+        line-height: 1.6;
+    }
+    @media screen and (max-width: 1200px) {
+        .container {
+            margin-left: 5rem;
+            margin-right: 5rem;
+        }
+    }
 </style>
