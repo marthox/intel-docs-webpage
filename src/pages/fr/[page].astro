@@ -5,7 +5,7 @@ import Layout from "@layouts/Layout.astro";
 import { getPages } from "@utils/contentful_utils";
 
 export const getStaticPaths = (() => {
-    return getPages();
+    return getPages("fr");
 }) satisfies GetStaticPaths;
 
 const { page_data } = Astro.props;
