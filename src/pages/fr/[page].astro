@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "@layouts/Layout.astro";
+
+import { getPages } from "@utils/contentful_utils";
+
+export const getStaticPaths = (() => {
+    return getPages();
+}) satisfies GetStaticPaths;
+
+const { page_data } = Astro.props;
+console.log(page_data);
+const {
+    sys: { locale: locale, id: page_id },
+    fields: {
+        tabTitle: tab_title,
+        heroBanner: heroBanner,
+        eventBanner: eventBanner,
+        pageBanners: pageBanners,
+        blogCarrousel: blogCarrousel,
+        solutions: solutions,
+    },
+} = page_data;
+---
+
+<Layout title={tab_title} lang={locale} page_id={page_id}> Hola </Layout>

@@ -6,14 +6,15 @@ import Footer from "@components/Footer.astro";
 
 import { getPageColors } from "@utils/contentful_utils";
 
-const vars = getPageColors();
+const vars = await getPageColors();
 
 interface Props {
     title: string;
     lang: string;
+    page_id: string;
 }
 
-const { title, lang } = Astro.props;
+const { title, lang, page_id } = Astro.props;
 ---
 
 <html lang={lang}>
@@ -25,7 +26,7 @@ const { title, lang } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body>
+    <body id={page_id}>
         <Navbar />
         <slot />
         <Footer />

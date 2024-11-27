@@ -7,20 +7,28 @@ const client = contentful.createClient({
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || "",
 });
 
-const fetchEntries = async () => {
+const fetchEntries = async (locale?: string) => {
+    const query = locale ? { locale } : {};
     const entries: { [key: string]: Array<Entry> } = {};
-    for (const entry of (await client.getEntries()).items) {
+    for (const entry of (await client.getEntries(query)).items) {
         if (!entries[entry.sys.contentType.sys.id]) {
-            entries[entry.sys.contentType.sys.id] = [entry];
+            entries[entry.sys.contentType.sys.id] = [entry as Entry];
             continue;
         }
-        entries[entry.sys.contentType.sys.id].push(entry);
+        entries[entry.sys.contentType.sys.id].push(entry as Entry);
     }
     return entries;
 };
 
-const entries = await fetchEntries();
+export const getPageColors = async (locale?: string) => {
+    const entries = await fetchEntries(locale);
+    return entries.pageColors[0].fields.pageColors;
+};
 
-export default entries;
-
-export const getPageColors = () => entries.pageColors[0].fields.pageColors;
+export const getPages = async (locale?: string) => {
+    const entries = await fetchEntries(locale);
+    return entries.page.map((page: Entry) => ({
+        params: { page: page.fields.slug },
+        props: { page_data: page },
+    }));
+};
