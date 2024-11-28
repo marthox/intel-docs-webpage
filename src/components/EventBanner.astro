@@ -1,0 +1,25 @@
+---
+const { banner_data } = Astro.props;
+
+const {
+    fields: { title: title, body: body },
+} = banner_data;
+---
+
+<section class="event-banner">
+    <div class="event-text">
+        <h2>{title}</h2>
+        <p>{body}</p>
+    </div>
+    <!-- <img class="event-image" src={`https:${image_url}`} alt={image_alt} />  -->
+</section>
+<style>
+    .event-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background-color: #f0f0f0;
+        width: 80%;
+    }
+</style>

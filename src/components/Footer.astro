@@ -1,5 +1,12 @@
 ---
-import { type Footer } from "@interfaces/fot_dict";
+import { type Footer } from "@interfaces/footer";
+
+import Logo from "@components/Logo.astro";
+
+import facebook_logo from "@assets/facebook_logo.svg?raw";
+import instagram_logo from "@assets/instagram_logo.svg?raw";
+import linkedin_logo from "@assets/linkedin_logo.svg?raw";
+import youtube_logo from "@assets/youtube_logo.svg?raw";
 
 const test_dict: Footer = {
     explore: [
@@ -24,29 +31,32 @@ const test_dict: Footer = {
     ],
 };
 ---
+
 <nav>
     <div class="footer">
         <ul class="main-list">
-            {Object.keys(test_dict).map((item) => (
-                <li class="list-container">
-                    <span class="list-title">
-                        {`${item.charAt(0).toUpperCase()}${item.slice(1).toLowerCase()}`}
-                    </span>
-                    <ul class="sub-list">
-                        {test_dict[item as keyof Footer].map((subItem) => (
-                            <li>
-                                <a href={subItem.link}>{subItem.text}</a>
-                            </li>
-                        ))}
-                    </ul>
-                </li>
-            ))}
+            {
+                Object.keys(test_dict).map((item) => (
+                    <li class="list-container">
+                        <span class="list-title">
+                            {`${item.charAt(0).toUpperCase()}${item.slice(1).toLowerCase()}`}
+                        </span>
+                        <ul class="sub-list">
+                            {test_dict[item as keyof Footer].map((subItem) => (
+                                <li>
+                                    <a href={subItem.link}>{subItem.text}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </li>
+                ))
+            }
         </ul>
         <div class="social-icons">
-            <a href="#" class="icon"><img src="linkedin-icon.png" alt="LinkedIn" /></a>
-            <a href="#" class="icon"><img src="facebook-icon.png" alt="Facebook" /></a>
-            <a href="#" class="icon"><img src="instagram-icon.png" alt="Instagram" /></a>
-            <a href="#" class="icon"><img src="youtube-icon.png" alt="YouTube" /></a>
+            <a href="#" class="icon"><Logo logo={facebook_logo} /></a>
+            <a href="#" class="icon"><Logo logo={instagram_logo} /></a>
+            <a href="#" class="icon"><Logo logo={linkedin_logo} /></a>
+            <a href="#" class="icon"><Logo logo={youtube_logo} /></a>
         </div>
         <label class="copy">© 2024 DocuWare</label>
     </div>
@@ -101,9 +111,9 @@ const test_dict: Footer = {
 
     .social-icons {
         display: flex;
-        justify-content: left; 
+        justify-content: left;
         gap: 15px;
-        width: 100%; 
+        width: 100%;
         margin-top: 20px;
         margin-left: 40%;
     }
@@ -122,7 +132,7 @@ const test_dict: Footer = {
         opacity: 0.7;
     }
 
-    .copy{
+    .copy {
         color: gray;
         font-size: 12px; /* Make text smaller */
         margin-top: 30px;

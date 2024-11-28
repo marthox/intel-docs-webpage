@@ -1,0 +1,39 @@
+---
+const { key, banner_data } = Astro.props;
+
+const {
+    fields: {
+        title: title,
+        body: body,
+        image: {
+            fields: {
+                file: { url: image_url },
+                description: image_alt,
+            },
+        },
+    },
+} = banner_data;
+
+const reverse = key % 2 === 0;
+---
+
+<section class={`page-banner ${reverse ? "reverse" : ""}`}>
+    <img class="banner-image" src={`https://${image_url}`} alt={image_alt} />
+    <div class="banner-text">
+        <h1>{title}</h1>
+        <p>{body}</p>
+    </div>
+</section>
+<style>
+    .page-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background-color: #f0f0f0;
+        width: 80%;
+    }
+    .page-banner.reverse {
+        flex-direction: row-reverse;
+    }
+</style>

@@ -22,7 +22,19 @@ const fetchEntries = async (locale?: string) => {
 
 export const getPageColors = async (locale?: string) => {
     const entries = await fetchEntries(locale);
-    return entries.pageColors[0].fields.pageColors;
+    if (entries.pageColors && entries.pageColors.length > 0) {
+        return entries.pageColors[0].fields.pageColors;
+    }
+
+    // Return fallback colors if no pageColors entry is found
+    return {
+        primaryColorOne: "#00ADFF",
+        primaryColorTwo: "#FFBF23",
+        primaryColorThree: "#303AB2",
+        secondaryColorOne: "#FFFFFF",
+        secondaryColorTwo: "#29272C",
+        secondaryColorThree: "#5C5C5C",
+    };
 };
 
 export const getPages = async (locale?: string) => {
@@ -32,3 +44,5 @@ export const getPages = async (locale?: string) => {
         props: { page_data: page },
     }));
 };
+
+export const getContentType = (entry: Entry) => entry.sys.contentType?.sys.id;

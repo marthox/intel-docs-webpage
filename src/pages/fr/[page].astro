@@ -1,26 +1,54 @@
 ---
 import type { GetStaticPaths } from "astro";
+import type { Entry } from "@interfaces/entry";
+
 import Layout from "@layouts/Layout.astro";
 
-import { getPages } from "@utils/contentful_utils";
+import HeroBanner from "@components/HeroBanner.astro";
+import EventBanner from "@components/EventBanner.astro";
+import PageBanner from "@components/PageBanner.astro";
+import BlogCarrousel from "@components/BlogCarrousel.astro";
+import InnerNavbar from "@components/InnerNavbar.astro";
+
+import { getPages, getContentType } from "@utils/contentful_utils";
 
 export const getStaticPaths = (() => {
     return getPages("fr");
 }) satisfies GetStaticPaths;
 
 const { page_data } = Astro.props;
-console.log(page_data);
+
+const elementTypes = {
+    pageBanner: PageBanner,
+    heroBanner: HeroBanner,
+    eventBanner: EventBanner,
+    blogContainer: BlogCarrousel,
+    solutions: InnerNavbar,
+};
+
 const {
     sys: { locale: locale, id: page_id },
     fields: {
         tabTitle: tab_title,
         heroBanner: heroBanner,
-        eventBanner: eventBanner,
-        pageBanners: pageBanners,
-        blogCarrousel: blogCarrousel,
-        solutions: solutions,
+        pageElements: pageElements,
     },
 } = page_data;
 ---
 
-<Layout title={tab_title} lang={locale} page_id={page_id}> Hola </Layout>
+<Layout title={tab_title} lang={locale} page_id={page_id}>
+    {heroBanner ? <HeroBanner banner_data={heroBanner} /> : null}
+
+    {
+        pageElements && pageElements.length > 0
+            ? pageElements.map((element: object, index: number) => {
+                  const contentType = getContentType(element as Entry);
+                  const ElementType =
+                      elementTypes[contentType as keyof typeof elementTypes];
+                  return ElementType ? (
+                      <ElementType key={index} banner_data={element} />
+                  ) : null;
+              })
+            : null
+    }
+</Layout>

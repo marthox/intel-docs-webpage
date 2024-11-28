@@ -21,30 +21,35 @@ const { title, lang, page_id } = Astro.props;
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content="Astro description" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
     <body id={page_id}>
         <Navbar />
-        <slot />
+        <div class="page-container">
+            <slot />
+        </div>
         <Footer />
     </body>
 </html>
 <style is:global define:vars={vars}>
     /* Classes */
-    .container {
+    .page-container {
         display: flex;
         flex-direction: column;
-        align-items: left;
-        margin-left: 20vw;
-        margin-right: 20vw;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
     /* Elements */
     body {
         background-color: var(--primaryColorOne);
         font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
     }
     h1 {
         font-size: 2.6rem;
@@ -63,11 +68,5 @@ const { title, lang, page_id } = Astro.props;
         color: var(--primaryColorOne);
         word-spacing: 0.1rem;
         line-height: 1.6;
-    }
-    @media screen and (max-width: 1200px) {
-        .container {
-            margin-left: 5rem;
-            margin-right: 5rem;
-        }
     }
 </style>
