@@ -17,22 +17,30 @@ const {
 
 <section class="hero-banner">
     <div class="hero-text">
-        <h1>{title}</h1>
-        <p>{body}</p>
+        <h1 class="hero-title">{title}</h1>
+        <p class="sub-hero-title">{body}</p>
     </div>
     <img class="hero-image" src={`https:${image_url}`} alt={image_alt} />
 </section>
 <style>
     .hero-image {
-        width: 50%;
+        width: 40%;
         height: auto;
+        padding: 2rem;
     }
     .hero-banner {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 2rem;
-        background-color: #f0f0f0;
-        width: 80%;
+        background-color: var(--secondaryColorOne);
+        width: 65%;
+    }
+    .hero-title{
+        padding-right: 5rem;
+    }
+    .sub-hero-title{
+        padding-right: 2rem;
+        padding-top: 2rem;
     }
 </style>

@@ -20,8 +20,8 @@ const reverse = key % 2 === 0;
 <section class={`page-banner ${reverse ? "reverse" : ""}`}>
     <img class="banner-image" src={`https://${image_url}`} alt={image_alt} />
     <div class="banner-text">
-        <h1>{title}</h1>
-        <p>{body}</p>
+        <h1 class="banner-title">{title}</h1>
+        <p class="banner-body">{body}</p>
     </div>
 </section>
 <style>
@@ -29,11 +29,21 @@ const reverse = key % 2 === 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem;
-        background-color: #f0f0f0;
-        width: 80%;
+        background-color: var(--secondaryColorOne);
     }
     .page-banner.reverse {
         flex-direction: row-reverse;
+    }
+    .banner-image{
+        width: 30%;
+    }
+    .banner-title{
+        padding-left: 15%;
+        padding-right: 10%;
+    }
+    .banner-body{
+        padding-left: 15%;
+        padding-right: 10%; 
+        margin-top: 2rem;
     }
 </style>

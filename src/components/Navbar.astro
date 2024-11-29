@@ -54,28 +54,27 @@ const test_dict: Navbar = {
                     </li>
                 ))
             }
-            <button class="request">Request a demo</button>
+            <button class="request">Free a demo</button>
         </ul>
     </div>
 </nav>
 
+
 <style>
-    body {
-        margin: 0;
-    }
     nav {
         background-color: white;
-        padding: 10px;
+        padding: 35px;
         position: relative;
         z-index: 2;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-size: 18px;
-        font-weight: 500;
     }
     .navbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 2;
+        position: relative;
     }
     .navbar ul {
         list-style: none;
@@ -84,7 +83,7 @@ const test_dict: Navbar = {
         display: flex;
     }
     .navbar li {
-        margin-right: 10px; /* Más espacio entre botones */
+        margin-right: 10px; 
         position: relative;
     }
     .navbar a {
@@ -126,14 +125,14 @@ const test_dict: Navbar = {
     }
     .dropdown {
         position: absolute;
-        top: calc(100% + 20px);
+        top: calc(100% + 10px);
         width: 200%;
         border-radius: 10px;
         transition: opacity 0.3s ease-in-out;
         opacity: 0;
         pointer-events: none;
         padding: 5px;
-        background: white;
+        background: #f0f0f0;
     }
     .dropdown a {
         text-decoration: none;
@@ -153,7 +152,7 @@ const test_dict: Navbar = {
         color: black;
     }
     .dropdown-container:focus-within .drop {
-        color: #303ab2;
+        color:var(--primaryColorOne);
         background-color: #e9f3fd;
     }
     .search-container {
@@ -179,14 +178,16 @@ const test_dict: Navbar = {
     }
     .request {
         padding: 10px 15px;
-        border-radius: 12px;
-        background-color: #303ab2;
+        border-radius: 10px;
+        background-color: white;
         border: 1px solid transparent;
         cursor: pointer;
-        color: white;
+        color: var(--primaryColorOne);
+        border: 1px solid var(--primaryColorOne);
     }
     .request:hover {
-        background-color: #272c7b;
+        background-color: var(--primaryColorOne);
+        color: white;
     }
     button:hover {
         background-color: #e9f3fd;

@@ -3,9 +3,6 @@ const { banner_data, key } = Astro.props;
 
 const { id: id, title: title, ctas: ctas } = banner_data.fields;
 
-console.log("id", id);
-console.log("title", title);
-console.log("ctas", ctas);
 ---
 
 <section class="banner-content">
@@ -41,7 +38,7 @@ console.log("ctas", ctas);
         align-items: center;
         justify-content: center;
         padding: 2rem;
-        background-color: #f0f0f0;
+        background-color: var(--secondaryColorOne);
         width: 80%;
     }
     .banner-text {
@@ -54,6 +51,7 @@ console.log("ctas", ctas);
         display: flex;
         flex-direction: row;
         justify-content: center;
+        padding: 10%;
     }
     .cta {
         margin: 1rem;
@@ -63,5 +61,18 @@ console.log("ctas", ctas);
         border-radius: 5px;
         text-decoration: none;
         color: black;
+    }
+    .cta{
+        padding: 10px;
+        border-radius: 10px;
+        background-color: white;
+        border: 1px solid transparent;
+        cursor: pointer;
+        color: var(--primaryColorOne);
+        border: 1px solid var(--primaryColorOne);
+    }
+    .cta:hover{
+        background-color: var(--primaryColorOne);
+        color: white;
     }
 </style>
