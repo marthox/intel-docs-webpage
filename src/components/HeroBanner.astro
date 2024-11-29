@@ -12,7 +12,6 @@ const {
             },
         },
     },
-    z,
 } = data;
 ---
 
@@ -20,6 +19,7 @@ const {
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
+        <div class="cta"></div>
     </div>
     <img class="hero-image" src={`https:${image_url}`} alt={image_alt} />
 </section>
@@ -37,10 +37,10 @@ const {
         background-color: var(--secondaryColorOne);
         width: 65%;
     }
-    .hero-title{
+    .hero-title {
         padding-right: 5rem;
     }
-    .sub-hero-title{
+    .sub-hero-title {
         padding-right: 2rem;
         padding-top: 2rem;
     }
