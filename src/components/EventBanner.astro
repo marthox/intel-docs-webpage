@@ -2,7 +2,19 @@
 const { key, data } = Astro.props;
 
 const {
-    fields: { title: title, body: body },
+    fields: {
+        title: title,
+        body: body,
+        eventDate: event_date,
+        location: location,
+        buttonCta: button_cta,
+        image: {
+            fields: {
+                file: { url: image_url },
+                description: image_alt,
+            },
+        },
+    },
 } = data;
 ---
 
@@ -10,8 +22,15 @@ const {
     <div class="event-text">
         <h2>{title}</h2>
         <p>{body}</p>
+        <span>{event_date}</span>
+        <span>{location}</span>
+        <a href={button_cta.fields.url} class="cta">
+            <button>
+                {button_cta.fields.text}
+            </button>
+        </a>
     </div>
-    <!-- <img class="event-image" src={`https:${image_url}`} alt={image_alt} />  -->
+    <img class="event-image" src={`https:${image_url}`} alt={image_alt} />
 </section>
 <style>
     .event-banner {
@@ -21,6 +40,31 @@ const {
         height: auto;
         margin: auto;
         padding: 2rem;
+        width: 60%;
+    }
+    .event-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1rem;
+        width: 70%;
+    }
+    .event-image {
+        border-radius: 1rem;
+        height: auto;
         width: 30%;
+        object-fit: cover;
+    }
+    button {
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: #f0f0f0;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .cta {
+        width: 80%;
+        text-decoration: none;
     }
 </style>

@@ -15,6 +15,7 @@ const InnerNavbar = ({ data }) => {
                     } = category;
                     return (
                         <button
+                            key={category.sys.id}
                             onClick={(prev) =>
                                 setInnerNavbarCategoryContent(index)
                             }
@@ -28,12 +29,10 @@ const InnerNavbar = ({ data }) => {
             </nav>
             <div className="reactive-inner-navbar-container">
                 {data[innerNavbarCategoryContent].fields.cardCta?.map((cta) => {
-                    console.log(cta);
                     return (
-                        <div className="cta-card">
+                        <div className="cta-card" key={cta.id}>
                             <img src={cta.fields.cardImage.fields.file.url} />
                             <button
-                                key={cta.id}
                                 onClick={() =>
                                     (window.location.href = cta.fields.url)
                                 }

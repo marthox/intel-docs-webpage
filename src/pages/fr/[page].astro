@@ -9,6 +9,7 @@ import EventBanner from "@components/EventBanner.astro";
 import PageBanner from "@components/PageBanner.astro";
 import BlogCarrousel from "@components/BlogCarrousel.astro";
 import InnerNavbar from "@components/InnerNavbar.astro";
+import GetInTouchBanner from "@components/GetInTouchBanner.astro";
 
 import { getPages, getContentType } from "@utils/contentful_utils";
 
@@ -23,7 +24,8 @@ const elementTypes = {
     heroBanner: HeroBanner,
     eventBanner: EventBanner,
     blogContainer: BlogCarrousel,
-    solutions: InnerNavbar,
+    innerNavbar: InnerNavbar,
+    getInTouchBanner: GetInTouchBanner,
 };
 
 const {
@@ -37,7 +39,7 @@ const {
 ---
 
 <Layout title={tab_title} lang={locale} page_id={page_id}>
-    {heroBanner ? <HeroBanner banner_data={heroBanner} /> : null}
+    {heroBanner ? <HeroBanner data={heroBanner} /> : null}
 
     {
         pageElements && pageElements.length > 0
@@ -46,7 +48,7 @@ const {
                   const ElementType =
                       elementTypes[contentType as keyof typeof elementTypes];
                   return ElementType ? (
-                      <ElementType key={index} banner_data={element} />
+                      <ElementType key={index} data={element} />
                   ) : null;
               })
             : null
