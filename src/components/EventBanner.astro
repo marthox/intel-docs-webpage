@@ -19,18 +19,18 @@ const {
 ---
 
 <section class="event-banner">
+    <img class="event-image" src={`https:${image_url}`} alt={image_alt} />
     <div class="event-text">
-        <h2>{title}</h2>
-        <p>{body}</p>
-        <span>{event_date}</span>
-        <span>{location}</span>
+        <h2 class="event-title">{title}</h2>
+        <p class="event-body">{body}</p>
+        <span class="event-date-location">{event_date}</span>
+        <span class="event-date-location">{location}</span>
         <a href={button_cta.fields.url} class="cta">
-            <button>
+            <button class="event-button">
                 {button_cta.fields.text}
             </button>
         </a>
     </div>
-    <img class="event-image" src={`https:${image_url}`} alt={image_alt} />
 </section>
 <style>
     .event-banner {
@@ -39,8 +39,8 @@ const {
         display: flex;
         height: auto;
         margin: auto;
-        padding: 2rem;
-        width: 60%;
+        padding: 1rem;
+        width: 50%;
     }
     .event-text {
         display: flex;
@@ -55,16 +55,30 @@ const {
         width: 30%;
         object-fit: cover;
     }
-    button {
-        width: 100%;
-        margin-top: 1rem;
-        padding: 1rem;
-        background-color: #f0f0f0;
-        border: 1px solid black;
-        border-radius: 5px;
-    }
     .cta {
-        width: 80%;
+        width: auto; 
         text-decoration: none;
+        align-self: flex-end; 
+    }
+    .event-button{
+        float: right;
+        padding: 10px 10px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        color: var(--primaryColorOne);
+        border: 1px solid var(--primaryColorOne);
+    }
+    .event-button:hover {
+        background-color: var(--primaryColorOne);
+        color: white;
+    }
+    .event-title, .event-body {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+    }
+
+    .event-date-location{
+        margin-left: 1rem;
     }
 </style>
