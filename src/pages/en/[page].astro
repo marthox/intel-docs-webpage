@@ -36,8 +36,6 @@ const {
         pageElements: pageElements,
     },
 } = page_data;
-
-console.log(pageElements);
 ---
 
 <Layout title={tab_title} lang={locale} page_id={page_id}>
@@ -47,6 +45,7 @@ console.log(pageElements);
         pageElements && pageElements.length > 0
             ? pageElements.map((element: object, index: number) => {
                   const contentType = getContentType(element as Entry);
+                  //   console.log(element);
                   const ElementType =
                       elementTypes[contentType as keyof typeof elementTypes];
                   return ElementType ? (

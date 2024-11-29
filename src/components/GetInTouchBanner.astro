@@ -1,0 +1,67 @@
+---
+const { banner_data, key } = Astro.props;
+
+const { id: id, title: title, ctas: ctas } = banner_data.fields;
+
+console.log("id", id);
+console.log("title", title);
+console.log("ctas", ctas);
+---
+
+<section class="banner-content">
+    <div class="banner-text">
+        <h1>{title}</h1>
+        <div class="cta-container">
+            {
+                ctas.map(
+                    (cta: {
+                        fields: { text: string; url: string };
+                        sys: { id: string };
+                    }) => {
+                        const {
+                            fields: { text: text, url: url },
+                        } = cta;
+                        return (
+                            <button>
+                                <a href={url} class="cta">
+                                    {text}
+                                </a>
+                            </button>
+                        );
+                    }
+                )
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .banner-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background-color: #f0f0f0;
+        width: 80%;
+    }
+    .banner-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .cta-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .cta {
+        margin: 1rem;
+        padding: 1rem;
+        background-color: #f0f0f0;
+        border: 1px solid black;
+        border-radius: 5px;
+        text-decoration: none;
+        color: black;
+    }
+</style>
