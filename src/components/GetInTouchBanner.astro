@@ -1,8 +1,7 @@
 ---
-const { banner_data, key } = Astro.props;
+const { key, data } = Astro.props;
 
-const { id: id, title: title, ctas: ctas } = banner_data.fields;
-
+const { id: id, title: title, ctas: ctas } = data.fields;
 ---
 
 <section class="banner-content">
@@ -62,7 +61,7 @@ const { id: id, title: title, ctas: ctas } = banner_data.fields;
         text-decoration: none;
         color: black;
     }
-    .cta{
+    .cta {
         padding: 10px;
         border-radius: 10px;
         background-color: white;
@@ -71,7 +70,7 @@ const { id: id, title: title, ctas: ctas } = banner_data.fields;
         color: var(--primaryColorOne);
         border: 1px solid var(--primaryColorOne);
     }
-    .cta:hover{
+    .cta:hover {
         background-color: var(--primaryColorOne);
         color: white;
     }

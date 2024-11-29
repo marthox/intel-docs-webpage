@@ -1,9 +1,9 @@
 ---
-const { banner_data } = Astro.props;
+const { key, data } = Astro.props;
 
 const {
     fields: { title: title, body: body },
-} = banner_data;
+} = data;
 ---
 
 <section class="event-banner">

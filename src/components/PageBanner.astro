@@ -1,5 +1,5 @@
 ---
-const { key, banner_data } = Astro.props;
+const { key, data } = Astro.props;
 
 const {
     fields: {
@@ -12,7 +12,7 @@ const {
             },
         },
     },
-} = banner_data;
+} = data;
 
 const reverse = key % 2 === 0;
 ---

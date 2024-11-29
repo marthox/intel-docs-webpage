@@ -1,3 +1,43 @@
 ---
-const { solutions } = Astro.props;
+import ReactiveInnerNavbar from "@components/ReactiveInnerNavbar";
+
+const { key, data } = Astro.props;
+
+const {
+    fields: { title: title, innerNavbarCategory: innerNavbarCategory },
+} = data;
 ---
+
+<section>
+    <div>
+        <h2>
+            {title}
+        </h2>
+    </div>
+    {
+        innerNavbarCategory && innerNavbarCategory.length > 0 ? (
+            <ReactiveInnerNavbar data={innerNavbarCategory} client:load />
+        ) : null
+    }
+</section>
+<style>
+    section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background-color: #f0f0f0;
+        width: 80%;
+    }
+    button {
+        margin: 1rem;
+        padding: 1rem;
+        background-color: #f0f0f0;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+    .cta {
+        text-decoration: none;
+    }
+</style>

@@ -1,5 +1,5 @@
 ---
-const { banner_data } = Astro.props;
+const { key, data } = Astro.props;
 
 const {
     fields: {
@@ -12,7 +12,8 @@ const {
             },
         },
     },
-} = banner_data;
+    z,
+} = data;
 ---
 
 <section class="hero-banner">
