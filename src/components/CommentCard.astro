@@ -1,0 +1,37 @@
+---
+const { key, data } = Astro.props;
+
+const {
+    fields: { id: id, title: title, body: body, jobAndCompany: jobAndCompany },
+} = data;
+---
+
+<div class="comment-card" id={id}>
+    <p>{body}</p>
+    <h3>{title}</h3>
+    <span>{jobAndCompany}</span>
+</div>
+<style>
+    .comment-card {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        background-color: var(--secondaryColorTwo);
+        border-radius: 5px;
+        width: 250px;
+    }
+    .comment-card h3 {
+        margin: 0;
+        color: var(--primaryColorTwo);
+    }
+    .comment-card span {
+        color: var(--primaryColorTwo);
+        font-size: 0.8rem;
+        opacity: 0.6;
+    }
+    .comment-card p {
+        margin-bottom: 2rem;
+        color: var(--secondaryColorOne);
+        opacity: 0.8;
+    }
+</style>

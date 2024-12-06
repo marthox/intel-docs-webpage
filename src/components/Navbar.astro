@@ -59,12 +59,12 @@ const test_dict: Navbar = {
     </div>
 </nav>
 
-
 <style>
     nav {
         background-color: white;
         padding: 35px;
-        position: relative;
+        position: sticky;
+        top: 0;
         z-index: 2;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-size: 18px;
@@ -83,7 +83,7 @@ const test_dict: Navbar = {
         display: flex;
     }
     .navbar li {
-        margin-right: 10px; 
+        margin-right: 10px;
         position: relative;
     }
     .navbar a {
@@ -152,7 +152,7 @@ const test_dict: Navbar = {
         color: black;
     }
     .dropdown-container:focus-within .drop {
-        color:var(--primaryColorOne);
+        color: var(--primaryColorOne);
         background-color: #e9f3fd;
     }
     .search-container {

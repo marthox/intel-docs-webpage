@@ -1,0 +1,50 @@
+---
+import CommentCard from "@components/CommentCard.astro";
+
+const { key, data } = Astro.props;
+
+const {
+    fields: { title: title, commentsCards: commentCards },
+} = data;
+---
+
+<section class="comment-container">
+    <h2>{title}</h2>
+    <div class="card-container">
+        {
+            commentCards &&
+                commentCards.length > 0 &&
+                commentCards.map(
+                    (
+                        comment: {
+                            fields: {
+                                id: string;
+                                title: string;
+                                body: string;
+                                jobAndCompany: string;
+                            };
+                        },
+                        index: number
+                    ) => {
+                        return <CommentCard key={index} data={comment} />;
+                    }
+                )
+        }
+    </div>
+</section>
+<style>
+    .comment-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    .card-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+    }
+</style>

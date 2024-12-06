@@ -17,10 +17,10 @@ const {
 const reverse = key % 2 === 0;
 ---
 
-<section class={`page-banner ${reverse ? "reverse" : ""}`}>
+<section class={`page-banner ${reverse ? "" : "reverse"}`}>
     <img class="banner-image" src={`https://${image_url}`} alt={image_alt} />
     <div class="banner-text">
-        <h1 class="banner-title">{title}</h1>
+        <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
     </div>
 </section>
@@ -34,16 +34,16 @@ const reverse = key % 2 === 0;
     .page-banner.reverse {
         flex-direction: row-reverse;
     }
-    .banner-image{
+    .banner-image {
         width: 30%;
     }
-    .banner-title{
+    .banner-title {
         padding-left: 15%;
         padding-right: 10%;
     }
-    .banner-body{
+    .banner-body {
         padding-left: 15%;
-        padding-right: 10%; 
+        padding-right: 10%;
         margin-top: 2rem;
     }
 </style>
