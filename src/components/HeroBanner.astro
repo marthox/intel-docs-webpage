@@ -13,7 +13,7 @@ const {
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
-        {cta && <BannerCta data={cta} />}
+        {cta && <BannerCta data={cta}  key={key} css_class="button-cta"/>}
     </div>
     {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>

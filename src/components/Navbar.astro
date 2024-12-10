@@ -1,5 +1,10 @@
 ---
 import { type Navbar } from "@interfaces/navbar";
+import BannerCta from "@components/BannerCta.astro";
+
+const cta = {
+    fields: { id: 1, text: "Request a demo", url: "https://www.youtube.com/watch?v=R7PKmKV-WfY&ab_channel=LasAlucines" }, 
+}
 
 const test_dict: Navbar = {
     solutions: [
@@ -54,7 +59,7 @@ const test_dict: Navbar = {
             ))
         }
     </ul>
-    <button class="request">Free a demo</button>
+    {cta && <BannerCta data={cta}  key={1} css_class="navbar-button"/>}
 </nav>
 
 <style>

@@ -16,7 +16,7 @@ const reverse = key % 2 === 0;
     <div class="banner-text">
         <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
-        {cta && <BannerCta data={cta} />}
+        {cta && <BannerCta data={cta}  key={key} css_class="button-cta"/>}
     </div>
     <style>
         .page-banner {
