@@ -1,0 +1,30 @@
+---
+const { key, data } = Astro.props;
+
+const {
+    fields: { id: id, text: text, url: url },
+} = data;
+---
+
+<a class="cta" id={id} href={url} role="button">
+    {text}
+</a>
+<style>
+    .cta {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: white;
+        border: 1px solid transparent;
+        cursor: pointer;
+        color: var(--primaryColorOne);
+        border: 1px solid var(--primaryColorOne);
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .cta:hover {
+        background-color: var(--primaryColorOne);
+        color: white;
+    }
+</style>

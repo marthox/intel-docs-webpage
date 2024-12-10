@@ -34,33 +34,31 @@ const test_dict: Navbar = {
     />
 </head>
 
-<nav>
-    <div class="navbar">
-        <a href="#">Logo</a>
-        <label for="menu-toggle"></label>
-        <ul>
-            {
-                Object.keys(test_dict).map((item) => (
-                    <li class="dropdown-container">
-                        <button class="drop">
-                            {`${item.charAt(0).toUpperCase()}${item.slice(1).toLowerCase()}`}
-                            <i class="bi bi-chevron-down" />
-                        </button>
-                        <div class="dropdown">
-                            {test_dict[item as keyof Navbar].map((subItem) => (
-                                <a href={subItem.link}>{subItem.text}</a>
-                            ))}
-                        </div>
-                    </li>
-                ))
-            }
-            <button class="request">Free a demo</button>
-        </ul>
-    </div>
+<nav class="navbar">
+    <a href="#">Logo</a>
+    <label for="menu-toggle"></label>
+    <ul>
+        {
+            Object.keys(test_dict).map((item) => (
+                <li class="dropdown-container">
+                    <button class="drop">
+                        {`${item.charAt(0).toUpperCase()}${item.slice(1).toLowerCase()}`}
+                        <i class="bi bi-chevron-down" />
+                    </button>
+                    <div class="dropdown">
+                        {test_dict[item as keyof Navbar].map((subItem) => (
+                            <a href={subItem.link}>{subItem.text}</a>
+                        ))}
+                    </div>
+                </li>
+            ))
+        }
+    </ul>
+    <button class="request">Free a demo</button>
 </nav>
 
 <style>
-    nav {
+    .navbar {
         background-color: white;
         padding: 35px;
         position: sticky;
@@ -68,17 +66,14 @@ const test_dict: Navbar = {
         z-index: 2;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-size: 18px;
-    }
-    .navbar {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        z-index: 2;
-        position: relative;
+        width: 100%;
+        gap: 4rem;
     }
     .navbar ul {
         list-style: none;
-        margin: 0 auto;
         padding: 0;
         display: flex;
     }
@@ -106,7 +101,6 @@ const test_dict: Navbar = {
     .drop i {
         transition: transform 0.3s ease-in-out;
         margin-left: 10px;
-        position: relative;
         display: inline-block;
     }
     .drop:focus {

@@ -15,7 +15,7 @@ const InnerNavbar = ({ data }) => {
                     } = category;
                     return (
                         <button
-                            key={category.sys.id}
+                            key={`${category.sys.id}${index}`}
                             onClick={(prev) =>
                                 setInnerNavbarCategoryContent(index)
                             }

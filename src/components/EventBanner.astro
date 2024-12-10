@@ -1,4 +1,7 @@
 ---
+import BannerImage from "@components/BannerImage.astro";
+import BannerCta from "@components/BannerCta.astro";
+
 const { key, data } = Astro.props;
 
 const {
@@ -7,40 +10,43 @@ const {
         body: body,
         eventDate: event_date,
         location: location,
-        buttonCta: button_cta,
-        image: {
-            fields: {
-                file: { url: image_url },
-                description: image_alt,
-            },
-        },
+        buttonCta: cta,
+        image: image,
     },
 } = data;
 ---
 
 <section class="event-banner">
-    <img class="event-image" src={`https:${image_url}`} alt={image_alt} />
+    <BannerImage key={key} css_class="event-image" data={image} />
     <div class="event-text">
         <h2 class="event-title">{title}</h2>
         <p class="event-body">{body}</p>
-        <span class="event-date-location">{event_date}</span>
-        <span class="event-date-location">{location}</span>
-        <a href={button_cta.fields.url} class="cta">
-            <button class="event-button">
-                {button_cta.fields.text}
-            </button>
-        </a>
+        <div class="details-container">
+            <div class="location-container">
+                <span class="event-date-location">{event_date}</span>
+                <span class="event-date-location">{location}</span>
+            </div>
+            <BannerCta data={cta} />
+        </div>
     </div>
 </section>
 <style>
+    .location-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .details-container {
+        display: flex;
+        justify-content: space-between;
+    }
     .event-banner {
         background: #f7f7f7;
         border-radius: 1rem;
         display: flex;
         height: auto;
-        margin: auto;
+        margin: 5rem;
         padding: 1rem;
-        width: 50%;
+        max-width: 800px;
     }
     .event-text {
         display: flex;
@@ -56,11 +62,11 @@ const {
         object-fit: cover;
     }
     .cta {
-        width: auto; 
+        width: auto;
         text-decoration: none;
-        align-self: flex-end; 
+        align-self: flex-end;
     }
-    .event-button{
+    .event-button {
         float: right;
         padding: 10px 10px;
         border-radius: 10px;
@@ -73,12 +79,22 @@ const {
         background-color: var(--primaryColorOne);
         color: white;
     }
-    .event-title, .event-body {
+    .event-title,
+    .event-body {
         margin-bottom: 1rem;
         margin-left: 1rem;
     }
 
-    .event-date-location{
+    .event-date-location {
         margin-left: 1rem;
+    }
+    @media (max-width: 768px) {
+        .event-banner {
+            flex-direction: column;
+            align-items: center;
+        }
+        .event-text {
+            width: 100%;
+        }
     }
 </style>

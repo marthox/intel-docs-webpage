@@ -130,3 +130,17 @@ button {
     font: inherit;
     color: inherit;
 }
+
+@font-face {
+    font-family: "NUE Helvetica";
+    src: url("/fonts/HelveticaNeueLTStd-Roman.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Nomo Sans";
+    src: url("/fonts/Mark Simonson - Proxima Nova Black.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}

@@ -2,8 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff; 
+    background-color: #ffffff;
     color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll on the whole page */
 }
 
 .reactive-inner-navbar {
@@ -28,7 +29,7 @@ body {
 
 .reactive-inner-navbar button:hover,
 .reactive-inner-navbar button:focus {
-    color: #29272C;
+    color: #29272c;
     border-bottom: 2px solid #ffc107;
 }
 
@@ -39,6 +40,9 @@ body {
     padding: 0 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    max-height: 80vh; /* Adjust as needed */
+    overflow-x: auto; /* Enable horizontal scroll */
+    overflow-y: hidden; /* Disable vertical scroll */
 }
 
 .cta-card {
@@ -48,7 +52,9 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .cta-card img {
@@ -61,7 +67,7 @@ body {
     display: block;
     width: 100%;
     padding: 1rem;
-    background-color: #29272C;
+    background-color: #29272c;
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
@@ -72,11 +78,45 @@ body {
 }
 
 .cta-card button:hover {
-    background-color: #FFBF23;
-    color: #29272C;
+    background-color: #ffbf23;
+    color: #29272c;
 }
 
 .cta-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .reactive-inner-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0; /* Remove vertical gaps */
+    }
+
+    .reactive-inner-navbar button {
+        width: 100%;
+        text-align: left;
+        border-bottom: 2px solid #555; /* Change to bottom border */
+        border-left: none; /* Remove left border */
+    }
+
+    .reactive-inner-navbar button:hover,
+    .reactive-inner-navbar button:focus {
+        border-bottom: 2px solid #ffc107; /* Change to bottom border */
+        border-left: none; /* Remove left border */
+    }
+
+    .reactive-inner-navbar-container {
+        display: flex;
+        overflow-x: auto;
+        padding: 0;
+        gap: 1rem;
+        overflow-y: hidden;
+    }
+
+    .cta-card {
+        min-width: 280px;
+        flex: 0 0 auto;
+    }
 }

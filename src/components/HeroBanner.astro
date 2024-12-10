@@ -1,17 +1,11 @@
 ---
+import BannerImage from "@components/BannerImage.astro";
+import BannerCta from "@components/BannerCta.astro";
+
 const { key, data } = Astro.props;
 
 const {
-    fields: {
-        title: title,
-        body: body,
-        image: {
-            fields: {
-                file: { url: image_url },
-                description: image_alt,
-            },
-        },
-    },
+    fields: { title: title, body: body, image: image, cta: cta },
 } = data;
 ---
 
@@ -19,29 +13,34 @@ const {
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
-        <div class="cta"></div>
+        {cta && <BannerCta data={cta} />}
     </div>
-    <img class="hero-image" src={`https:${image_url}`} alt={image_alt} />
+    {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>
 <style>
-    .hero-image {
-        width: 40%;
-        height: auto;
+    .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 2rem;
     }
     .hero-banner {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem;
         background-color: var(--secondaryColorOne);
-        width: 65%;
+        width: 100%;
     }
-    .hero-title {
-        padding-right: 5rem;
-    }
+
     .sub-hero-title {
         padding-right: 2rem;
         padding-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-banner {
+            flex-direction: column;
+        }
     }
 </style>

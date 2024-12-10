@@ -1,49 +1,45 @@
 ---
+import BannerImage from "@components/BannerImage.astro";
+import BannerCta from "@components/BannerCta.astro";
+
 const { key, data } = Astro.props;
 
 const {
-    fields: {
-        title: title,
-        body: body,
-        image: {
-            fields: {
-                file: { url: image_url },
-                description: image_alt,
-            },
-        },
-    },
+    fields: { title: title, body: body, image: image, cta: cta },
 } = data;
 
 const reverse = key % 2 === 0;
 ---
 
 <section class={`page-banner ${reverse ? "" : "reverse"}`}>
-    <img class="banner-image" src={`https://${image_url}`} alt={image_alt} />
+    {image && <BannerImage data={image} key={key} css_class="banner-image" />}
     <div class="banner-text">
         <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
+        {cta && <BannerCta data={cta} />}
     </div>
+    <style>
+        .page-banner {
+            gap: 2rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondaryColorOne);
+        }
+        .page-banner.reverse {
+            flex-direction: row-reverse;
+        }
+        .banner-body {
+            margin-top: 2rem;
+        }
+        @media (max-width: 768px) {
+            .page-banner {
+                flex-direction: column;
+            }
+            .page-banner.reverse {
+                flex-direction: column;
+            }
+        }
+    </style>
 </section>
-<style>
-    .page-banner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--secondaryColorOne);
-    }
-    .page-banner.reverse {
-        flex-direction: row-reverse;
-    }
-    .banner-image {
-        width: 30%;
-    }
-    .banner-title {
-        padding-left: 15%;
-        padding-right: 10%;
-    }
-    .banner-body {
-        padding-left: 15%;
-        padding-right: 10%;
-        margin-top: 2rem;
-    }
-</style>
