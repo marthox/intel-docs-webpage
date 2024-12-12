@@ -1,5 +1,5 @@
 ---
-type CssClass = "banner-image" | "hero-image" | "event-image";
+type CssClass = "banner-image" | "hero-image" | "event-image" | "page-image";
 
 interface Props {
     key: string;
@@ -42,16 +42,24 @@ const {
         object-fit: cover;
     }
 
+    .page-image{
+        max-width: 40%;
+        object-fit: cover;
+    }
+
     @media (max-width: 768px) {
         .banner-image {
-            min-width: 100%;
+            min-width: 90%;
         }
         .hero-image {
-            min-width: 100%;
+            min-width: 90%;
         }
         .event-image {
             min-width: 100%;
             margin-bottom: 1rem;
+        }
+        .page-image{
+            min-width: 60%;
         }
     }
 </style>

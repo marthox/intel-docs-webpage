@@ -13,12 +13,11 @@ const {
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
-        {
-            cta &&
-                cta.map((cta: any, key: number) => (
-                    <BannerCta data={cta} key={key} css_class="button-cta" />
-                ))
-        }
+        <div class="button-container">
+            { cta && cta.map((cta: any, key: number) => (
+              <BannerCta data={cta} key={key} css_class="button-hero" />
+            )) }
+          </div>
     </div>
     {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>
@@ -43,9 +42,35 @@ const {
         padding-top: 2rem;
     }
 
+    .hero-title {
+        animation: grow 3s infinite ease-in-out;
+    }
+
+    @keyframes grow {
+        0% {
+    transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+    }
+
     @media (max-width: 768px) {
         .hero-banner {
             flex-direction: column;
+            text-align: center;
+        }
+        .sub-hero-title {
+            padding-right: 1rem;
+            padding-top: 1rem;
+            text-align: center;
+        }
+        .button-hero {
+            margin-bottom: 1rem;
         }
     }
+
 </style>

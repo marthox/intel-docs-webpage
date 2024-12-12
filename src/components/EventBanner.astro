@@ -104,15 +104,26 @@ const {
     }
     .event-date-location .icon {
         margin-right: 0.5rem;
-        fill: var(--primaryColorOne); /* Ajusta este color según tu diseño */
+        fill: var(--primaryColorOne); 
     }
     @media (max-width: 768px) {
         .event-banner {
             flex-direction: column;
             align-items: center;
+            width: 80%;
         }
         .event-text {
             width: 100%;
         }
+        .event-title{
+            font-size: 24px;
+        }
+        .event-body{
+            font-size: 16px;
+        }
+
+        .event-date-location {
+        font-size: 12px;
+    }
     }
 </style>

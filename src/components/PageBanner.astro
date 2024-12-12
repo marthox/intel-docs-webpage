@@ -12,11 +12,11 @@ const reverse = key % 2 === 0;
 ---
 
 <section class={`page-banner ${reverse ? "" : "reverse"}`}>
-    {image && <BannerImage data={image} key={key} css_class="banner-image" />}
+    {image && <BannerImage data={image} key={key} css_class="page-image" />}
     <div class="banner-text">
         <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
-        {cta && <BannerCta data={cta}  key={key} css_class="button-cta"/>}
+        {cta && <BannerCta data={cta}  key={key} css_class="page-cta"/>}
     </div>
     <style>
         .page-banner {
@@ -39,6 +39,15 @@ const reverse = key % 2 === 0;
             }
             .page-banner.reverse {
                 flex-direction: column;
+            }
+            .banner-title{
+                font-size: 30px;
+                margin-left: 1rem;
+            }
+            .banner-body{
+                font-size: 16px;
+                margin-right: 1rem;
+                margin-left: 1rem;
             }
         }
     </style>

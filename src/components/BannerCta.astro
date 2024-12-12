@@ -10,7 +10,7 @@ const {
     {text}
 </a>
 <style>
-        .button-cta {
+        .button-cta, .page-cta {
         display: inline-block;
         margin: 10px;
         padding: 10px;
@@ -24,7 +24,7 @@ const {
         transition: all 0.3s ease-in-out; 
     }
 
-    .button-cta:hover {
+    .button-cta, .page-cta:hover {
         background-color: black;
         color: white;
         transform: scale(1.1); 
@@ -49,6 +49,43 @@ const {
         background-color: black;
         color: white;
         box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna para efecto de profundidad */
+    }
+
+    .button-hero{
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: var(--primaryColorOne);
+    border: 1px solid var(--primaryColorOne);
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: all 0.3s ease-in-out;
+    }
+
+    .button-hero:hover {
+        background-color: var(--primaryColorOne);
+        color: white;
+        transform: scale(1.1); 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .button-cta {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 12px;
+        }
+        .page-cta{
+            width: 80%;
+            text-align: center;
+            margin: 1rem auto;
+            display: block;
+        }
     }
 
 </style>
