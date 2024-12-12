@@ -134,7 +134,7 @@ button {
 @font-face {
     font-family: "NUE Helvetica";
     src: url("/fonts/helveticaNeueLTStdRoman.otf") format("opentype");
-    font-weight: bold;
+    font-weight: normal;
 }
 
 @font-face {

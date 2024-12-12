@@ -3,8 +3,12 @@ import { type Navbar } from "@interfaces/navbar";
 import BannerCta from "@components/BannerCta.astro";
 
 const cta = {
-    fields: { id: 1, text: "Request a demo", url: "https://www.youtube.com/watch?v=R7PKmKV-WfY&ab_channel=LasAlucines" }, 
-}
+    fields: {
+        id: 1,
+        text: "Request a demo",
+        url: "https://www.youtube.com/watch?v=R7PKmKV-WfY&ab_channel=LasAlucines",
+    },
+};
 
 const test_dict: Navbar = {
     solutions: [
@@ -59,7 +63,7 @@ const test_dict: Navbar = {
             ))
         }
     </ul>
-    {cta && <BannerCta data={cta}  key={1} css_class="navbar-button"/>}
+    {cta && <BannerCta data={cta} key={1} css_class="navbar-button" />}
 </nav>
 
 <style>
@@ -69,7 +73,6 @@ const test_dict: Navbar = {
         position: sticky;
         top: 0;
         z-index: 2;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         font-size: 18px;
         display: flex;
         justify-content: center;

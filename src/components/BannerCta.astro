@@ -10,7 +10,8 @@ const {
     {text}
 </a>
 <style>
-        .button-cta, .page-cta {
+    .button-cta,
+    .page-cta {
         display: inline-block;
         margin: 10px;
         padding: 10px;
@@ -20,36 +21,31 @@ const {
         border: 1px solid transparent;
         cursor: pointer;
         text-decoration: none;
-        font-family: Arial, Helvetica, sans-serif;
-        transition: all 0.3s ease-in-out; 
+        transition: all 0.3s ease-in-out;
     }
 
-    .button-cta:hover {
+    .button-cta:hover,
+    .page-cta:hover {
         background-color: black;
         color: white;
-        transform: scale(1.1); 
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-    }
-
-    ..page-cta:hover {
-        background-color: black;
-        color: white;
-        transform: scale(1.1); 
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .navbar-button {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: var(--primaryColorTwo);
-    color: black;
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: var(--primaryColorTwo);
+        color: black;
+        border: 1px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+            background-color 0.3s ease-in-out,
+            color 0.3s ease-in-out,
+            box-shadow 0.3s ease-in-out;
     }
 
     .navbar-button:hover {
@@ -58,41 +54,39 @@ const {
         box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna para efecto de profundidad */
     }
 
-    .button-hero{
-    display: inline-block;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: transparent;
-    color: var(--primaryColorOne);
-    border: 1px solid var(--primaryColorOne);
-    cursor: pointer;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
-    transition: all 0.3s ease-in-out;
+    .button-hero {
+        display: inline-block;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: transparent;
+        color: var(--primaryColorOne);
+        border: 1px solid var(--primaryColorOne);
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
     }
 
     .button-hero:hover {
         background-color: var(--primaryColorOne);
         color: white;
-        transform: scale(1.1); 
+        transform: scale(1.1);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 768px) {
         .button-cta {
-        display: inline-block;
-        margin: 10px;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 12px;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
         }
-        .page-cta{
+        .page-cta {
             width: 80%;
             text-align: center;
             margin: 1rem auto;
             display: block;
         }
     }
-
 </style>

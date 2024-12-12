@@ -53,4 +53,9 @@ export const getBlogs = async (locale?: string) => {
     }));
 };
 
+export const listBlogs = async (locale?: string) => {
+    const entries = await fetchEntries(locale);
+    return entries.blog;
+};
+
 export const getContentType = (entry: Entry) => entry.sys.contentType?.sys.id;
