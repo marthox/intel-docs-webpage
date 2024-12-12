@@ -5,56 +5,37 @@ const {
     fields: { id: id, title: title, body: body, jobAndCompany: jobAndCompany },
 } = data;
 ---
-
 <div class="comment-card" id={id}>
-    <p>{body}</p>
-    <h3>{title}</h3>
-    <span>{jobAndCompany}</span>
+    <p class="comment-body">{body}</p>
+    <h3 class="comment-title">{title}</h3>
+    <span class="comment-meta">{jobAndCompany}</span>
 </div>
+
 <style>
     .comment-card {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        background-color: var(--secondaryColorTwo);
-        border-radius: 5px;
-        width: 250px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        animation: zoomIn 0.5s ease;
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        min-width: 300px; 
+        max-width: 300px; 
+        flex: 0 0 auto; 
     }
-    .comment-card h3 {
-        margin: 0;
-        color: var(--primaryColorTwo);
+    .comment-title {
+        font-size: 1.25em;
+        margin-bottom: 0.5em;
+        color: #333;
     }
-    .comment-card span {
-        color: var(--primaryColorTwo);
-        font-size: 0.8rem;
-        opacity: 0.6;
+    .comment-body {
+        font-size: 1em;
+        color: #555;
     }
-    .comment-card p {
-        margin-bottom: 2rem;
-        color: var(--secondaryColorOne);
-        opacity: 0.8;
+    .comment-meta {
+        font-size: 0.9em;
+        color: #777;
+        display: block;
+        margin-top: 1em;
     }
-
-
-    .comment-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    }
-
-
-
-    @keyframes zoomIn {
-        from {
-            transform: scale(0.9);
-            opacity: 0;
-        }
-        to {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-    
 </style>

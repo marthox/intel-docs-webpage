@@ -7,78 +7,54 @@ const {
     fields: { title: title, commentsCards: commentCards },
 } = data;
 ---
-
 <section class="comment-container">
-    <h2>{title}</h2>
+    <h2 class="section-title">{title}</h2>
     <div class="card-container">
-        {
-            commentCards &&
-                commentCards.length > 0 &&
-                commentCards.map(
-                    (
-                        comment: {
-                            fields: {
-                                id: string;
-                                title: string;
-                                body: string;
-                                jobAndCompany: string;
-                            };
-                        },
-                        index: number
-                    ) => {
-                        return <CommentCard key={index} data={comment} />;
-                    }
-                )
-        }
+        {commentCards &&
+            commentCards.length > 0 &&
+            commentCards.map(
+                (
+                    comment: {
+                        fields: {
+                            id: string;
+                            title: string;
+                            body: string;
+                            jobAndCompany: string;
+                        };
+                    },
+                    index: number
+                ) => {
+                    return <CommentCard key={index} data={comment} />;
+                }
+            )}
     </div>
 </section>
+
 <style>
     .comment-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        margin: 2rem 0;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 16px;
+    }
+
+    .section-title {
+        text-align: center;
     }
 
     .card-container {
-    display: flex;
-    flex-wrap: wrap; /* Permite que las cartas salten a nuevas líneas */
-    gap: 1rem;
-    justify-content: center;
-}
-
-.card-container > * {
-    max-width: 300px; /* Ajusta este valor según el diseño que prefieras */
-    height: auto; /* Deja que la altura sea automática */
-    padding: 1rem;
-    box-sizing: border-box; /* Incluye relleno dentro del ancho y alto */
-    overflow: hidden; /* Evita el desbordamiento visual */
-    white-space: normal; /* Permite que el texto se ajuste automáticamente */
-    word-wrap: break-word; /* Rompe las palabras largas si es necesario */
-    text-align: center; /* Opcional, para centrar el texto */
-}
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        display: flex;
+        overflow-x: auto; 
+        gap: 16px; 
+        padding: 16px;
+        scroll-snap-type: x mandatory; 
     }
 
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .card-container::-webkit-scrollbar {
+        height: 8px; 
+    }
+
+    .card-container::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 4px;
     }
 </style>
