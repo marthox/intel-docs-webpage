@@ -1,5 +1,11 @@
 ---
+import { getBlogs } from "@utils/contentful_utils";
+
 const { key, data } = Astro.props;
+
+const {
+    fields: { title: title },
+} = data;
 ---
 
-This is the blog carrousel
+<h2>{title}</h2>

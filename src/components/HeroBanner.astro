@@ -5,7 +5,7 @@ import BannerCta from "@components/BannerCta.astro";
 const { key, data } = Astro.props;
 
 const {
-    fields: { title: title, body: body, image: image, cta: cta },
+    fields: { title: title, body: body, image: image, buttons: cta },
 } = data;
 ---
 
@@ -13,7 +13,12 @@ const {
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
-        {cta && <BannerCta data={cta}  key={key} css_class="button-cta"/>}
+        {
+            cta &&
+                cta.map((cta: any, key: number) => (
+                    <BannerCta data={cta} key={key} css_class="button-cta" />
+                ))
+        }
     </div>
     {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>

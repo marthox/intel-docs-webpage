@@ -45,4 +45,12 @@ export const getPages = async (locale?: string) => {
     }));
 };
 
+export const getBlogs = async (locale?: string) => {
+    const entries = await fetchEntries(locale);
+    return entries.blog.map((blog: Entry) => ({
+        params: { blog: blog.fields.slug },
+        props: { blog_data: blog },
+    }));
+};
+
 export const getContentType = (entry: Entry) => entry.sys.contentType?.sys.id;
