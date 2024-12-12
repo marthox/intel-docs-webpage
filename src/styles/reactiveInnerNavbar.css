@@ -3,7 +3,7 @@ body {
     padding: 0;
     background-color: #ffffff;
     color: #333;
-    overflow-x: hidden; /* Prevent horizontal scroll on the whole page */
+    overflow-x: hidden; 
 }
 
 .reactive-inner-navbar {
@@ -23,7 +23,7 @@ body {
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 0.5rem 1rem;
-    border-bottom: 2px solid #555;
+    border-bottom: 2px solid transparent; 
 }
 
 .reactive-inner-navbar button:hover,
@@ -34,10 +34,10 @@ body {
 
 .reactive-inner-navbar-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 1rem; 
     padding: 0 1rem;
-    max-width: 1200px;
+    max-width: 100%; 
     max-height: 80vh; 
     overflow-x: auto; 
     overflow-y: hidden; 
@@ -57,8 +57,9 @@ body {
 
 .cta-card img {
     width: 100%;
-    height: 150px;
+    height: auto;
     object-fit: cover;
+    max-height: 200px;
 }
 
 .cta-card button {
@@ -89,21 +90,20 @@ body {
     .reactive-inner-navbar-container {
         display: flex;
         flex-wrap: nowrap;
-        overflow-x: scroll;
+        overflow-x: auto;
         scroll-snap-type: x mandatory;
-        gap: 0;
+        gap: 1rem;
         -webkit-overflow-scrolling: touch;
+        margin-right: 1rem;
     }
 
     .cta-card {
-        flex: 0 0 100%;
+        flex: 0 0 70%; 
         scroll-snap-align: center;
+        max-width: 100%; 
     }
 
     .cta-card img {
-        height: auto;
-        max-height: 70vh;
-        width: 100%;
-        object-fit: cover;
+        max-height: 60vh; 
     }
 }
