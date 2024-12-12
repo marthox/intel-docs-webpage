@@ -7,19 +7,24 @@ interface Props {
 
 const { href, title, body } = Astro.props;
 ---
-
-<li class="link-card">
-    <a href={href}>
-        <h2>
-            {title}
-            <span>&rarr;</span>
-        </h2>
-        <p>
-            {body}
-        </p>
-    </a>
-</li>
+<div class="blog-card">
+    <li class="link-card">
+        <a href={href}>
+            <h2>
+                {title}
+                <span>&rarr;</span>
+            </h2>
+            <p>
+                {body}
+            </p>
+        </a>
+    </li>
+</div>
 <style>
+    .blog-card {
+        padding: 0.2rem;
+    }
+
     .link-card {
         list-style: none;
         display: flex;
@@ -30,30 +35,60 @@ const { href, title, body } = Astro.props;
         cursor: pointer;
         width: 350px;
         height: 250px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
     .link-card > a {
         width: 100%;
         text-decoration: none;
         line-height: 1.4;
         color: white;
         opacity: 0.8;
+        transition: color 0.3s ease, opacity 0.3s ease;
     }
+
     h2 {
         margin: 0;
         font-size: 1.25rem;
         color: var(--primaryColorTwo);
+        transition: color 0.3s ease;
     }
+
     p {
         margin-top: 0.5rem;
         margin-bottom: 2rem;
         color: var(--secondaryColorOne);
         opacity: 0.8;
+        transition: opacity 0.3s ease;
     }
+
     .link-card:is(:hover, :focus-within) {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         background-position: 0;
         background-image: var(--accent-gradient);
     }
+
     .link-card:is(:hover, :focus-within) h2 {
         color: rgb(var(--accent-light));
+    }
+
+    .link-card:is(:hover, :focus-within) p {
+        opacity: 1;
+    }
+
+    .link-card:is(:hover, :focus-within) > a {
+        color: white;
+        opacity: 1;
+    }
+
+    h2 span {
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .link-card:is(:hover, :focus-within) h2 span {
+        transform: translateX(5px);
     }
 </style>

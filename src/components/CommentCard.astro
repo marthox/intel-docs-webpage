@@ -13,7 +13,7 @@ const {
 
 <style>
     .comment-card {
-        background: #f8f9fa;
+        background-color: var(--secondaryColorTwo);
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 16px;
@@ -26,22 +26,25 @@ const {
     }
 
     .comment-card:hover {
-    transform: scale(1.05); /* Aumenta ligeramente el tamaño del comentario */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más grande cuando pasa el mouse */
+    transform: scale(1.05); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
     .comment-title {
         font-size: 1.25em;
         margin-bottom: 0.5em;
-        color: #333;
+        color: var(--primaryColorTwo);
+        opacity: 0.8;
     }
     .comment-body {
         font-size: 1em;
-        color: #555;
+        color: var(--secondaryColorOne);
+        opacity: 0.8;
     }
     .comment-meta {
         font-size: 0.9em;
-        color: #777;
+        color: var(--primaryColorTwo);
+        opacity: 0.8;
         display: block;
         margin-top: 1em;
     }

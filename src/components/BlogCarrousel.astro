@@ -3,27 +3,58 @@ import { listBlogs } from "@utils/contentful_utils";
 import { getLangFromUrl } from "@i18n/utils";
 import Card from "@components/Card.astro";
 
-const { key, data } = Astro.props; // Added lang
+const { key, data } = Astro.props;
 
 const {
     fields: { title: title },
 } = data;
 
 const blogs = await listBlogs();
-const lang = getLangFromUrl(Astro.url); // Added lang
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <h2>{title}</h2>
-<ul>
-    {
-        blogs.map((blog) => (
-            <li id={blog.sys.id}>
+<div class="comments-container">
+    <ul class="comments-list">
+        {
+            blogs.map((blog) => (
                 <Card
                     title={blog.fields.title}
                     body={blog.fields.enShortDescription}
                     href={`/${lang}/blogs/${blog.fields.slug}`}
                 />
-            </li>
-        ))
+            ))
+        }
+    </ul>
+</div>
+
+<style>
+    .comments-container {
+        padding: 16px;
+        max-width: 100%;
+        margin: 0 auto;
     }
-</ul>
+
+    .comments-list {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto; 
+        padding: 16px;
+        scroll-snap-type: x mandatory;
+        list-style-type: none; 
+    }
+
+    .comments-list::-webkit-scrollbar {
+        height: 8px; 
+    }
+
+    .comments-list::-webkit-scrollbar-thumb {
+        background: var(--primaryColorTwo);
+        border-radius: 4px;
+    }
+
+    .comments-list::-webkit-scrollbar-track {
+        background:#ffe9b5;
+        opacity: 0.5;
+    }
+</style>
