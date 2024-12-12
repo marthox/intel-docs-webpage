@@ -9,7 +9,7 @@ const {
 ---
 
 <section class="comment-container">
-    <h2 class="tittle-comment">{title}</h2>
+    <h2>{title}</h2>
     <div class="card-container">
         {
             commentCards &&
@@ -43,19 +43,42 @@ const {
     }
 
     .card-container {
-        display: flex;
-        overflow-x: auto;
-        gap: 1rem;
+    display: flex;
+    flex-wrap: wrap; /* Permite que las cartas salten a nuevas líneas */
+    gap: 1rem;
+    justify-content: center;
+}
+
+.card-container > * {
+    max-width: 300px; /* Ajusta este valor según el diseño que prefieras */
+    height: auto; /* Deja que la altura sea automática */
+    padding: 1rem;
+    box-sizing: border-box; /* Incluye relleno dentro del ancho y alto */
+    overflow: hidden; /* Evita el desbordamiento visual */
+    white-space: normal; /* Permite que el texto se ajuste automáticamente */
+    word-wrap: break-word; /* Rompe las palabras largas si es necesario */
+    text-align: center; /* Opcional, para centrar el texto */
+}
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-
-    @media (max-width: 768px) {
-    
-        .tittle-comment{
-            margin-left: 1rem;
-            margin-right: 1rem;
-            text-align: center;
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
-
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>

@@ -39,10 +39,9 @@ body {
     gap: 1.5rem;
     padding: 0 1rem;
     max-width: 1200px;
-    margin: 0 auto;
-    max-height: 80vh; /* Adjust as needed */
-    overflow-x: auto; /* Enable horizontal scroll */
-    overflow-y: hidden; /* Disable vertical scroll */
+    max-height: 80vh; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
 }
 
 .cta-card {
