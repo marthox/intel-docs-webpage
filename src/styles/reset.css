@@ -134,13 +134,17 @@ button {
 @font-face {
     font-family: "NUE Helvetica";
     src: url("/fonts/helveticaNeueLTStdRoman.otf") format("opentype");
-    font-weight: normal;
-    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "NUE Helvetica";
+    src: url("/fonts/helveticaNeueLTStdBd.otf") format("opentype");
+    font-weight: bold;
 }
 
 @font-face {
     font-family: "Nomo Sans";
     src: url("/fonts/markSimonsonProximaNovaBlack.otf") format("opentype");
     font-weight: normal;
-    font-style: normal;
 }

@@ -1,0 +1,18 @@
+---
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import "@styles/textBanner.css";
+
+const { body } = Astro.props;
+---
+
+<div class="text-banner-content">
+    <Fragment set:html={documentToHtmlString(body)} />
+</div>
+
+<style>
+    .text-banner-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+</style>

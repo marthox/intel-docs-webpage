@@ -1,5 +1,5 @@
 ---
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import TextBannerContent from "@components/TextBannerContent.astro";
 
 const { key, data } = Astro.props;
 
@@ -10,7 +10,7 @@ const {
 
 <section class="text-banner">
     <h2>{title}</h2>
-    <Fragment set:html={documentToHtmlString(body)} />
+    <TextBannerContent body={body} />
 </section>
 <style>
     .text-banner {

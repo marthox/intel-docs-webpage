@@ -44,6 +44,7 @@ const { title, lang, page_id } = Astro.props;
         background-color: white;
         width: 100%;
         max-width: 1200px;
+        gap: 40px;
     }
     /* Elements */
     body {
@@ -53,20 +54,19 @@ const { title, lang, page_id } = Astro.props;
         width: 100vw;
         background-color: var(--secondaryColorOne);
         font-family: "NUE Helvetica", Arial, Helvetica, sans-serif;
+        font-weight: normal; /* Ensure normal weight is applied */
         margin: 0;
         padding: 0;
         overflow-x: hidden;
     }
     h1 {
         font-size: 3rem;
-        font-weight: bold;
         font-family: "Nomo Sans", Arial, Helvetica, sans-serif;
         color: var(--primaryColorOne);
     }
     h2 {
         color: var(--primaryColorOne);
         font-size: 2.25rem;
-        font-weight: bold;
         font-family: "Nomo Sans", Arial, Helvetica, sans-serif;
     }
     h3 {
@@ -79,10 +79,12 @@ const { title, lang, page_id } = Astro.props;
         font-size: 18px;
         color: black;
         font-family: "NUE Helvetica", Arial, Helvetica, sans-serif;
+        font-weight: normal; /* Ensure normal weight is applied */
     }
     a,
     span {
         font-family: "NUE Helvetica", Arial, Helvetica, sans-serif;
+        font-weight: normal; /* Ensure normal weight is applied */
     }
     @media (max-width: 768px) {
         .page-container {
