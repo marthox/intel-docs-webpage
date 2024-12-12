@@ -9,7 +9,7 @@ const {
 ---
 
 <section class="comment-container">
-    <h2>{title}</h2>
+    <h2 class="tittle-comment">{title}</h2>
     <div class="card-container">
         {
             commentCards &&
@@ -46,5 +46,16 @@ const {
         display: flex;
         overflow-x: auto;
         gap: 1rem;
+    }
+
+
+    @media (max-width: 768px) {
+    
+        .tittle-comment{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            text-align: center;
+        }
+
     }
 </style>
