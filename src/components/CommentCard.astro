@@ -22,7 +22,14 @@ const {
         min-width: 300px; 
         max-width: 300px; 
         flex: 0 0 auto; 
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .comment-card:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño del comentario */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra más grande cuando pasa el mouse */
+}
+
     .comment-title {
         font-size: 1.25em;
         margin-bottom: 0.5em;
