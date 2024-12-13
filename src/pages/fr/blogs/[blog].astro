@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths } from "astro";
+import type { Blog } from "@interfaces/blog";
+
+import Layout from "@layouts/Layout.astro";
+
+import { getBlogs } from "@utils/contentful_utils";
+
+export const prerender = true;
+
+export const getStaticPaths = (() => {
+    return getBlogs("fr");
+}) satisfies GetStaticPaths;
+
+const { blog_data } = Astro.props;
+
+const {
+    sys: { locale: locale, id: page_id },
+    fields: { title: blog_title },
+} = blog_data;
+---
+
+<Layout title={blog_title} lang={locale} page_id={page_id}>
+    <h1>{blog_title}</h1>
+</Layout>

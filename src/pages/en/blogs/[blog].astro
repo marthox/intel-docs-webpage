@@ -6,6 +6,8 @@ import Layout from "@layouts/Layout.astro";
 
 import { getBlogs } from "@utils/contentful_utils";
 
+export const prerender = true;
+
 export const getStaticPaths = (() => {
     return getBlogs();
 }) satisfies GetStaticPaths;
@@ -14,11 +16,7 @@ const { blog_data } = Astro.props;
 
 const {
     sys: { locale: locale, id: page_id },
-    fields: {
-        title: blog_title,
-        heroBanner: heroBanner,
-        pageElements: pageElements,
-    },
+    fields: { title: blog_title },
 } = blog_data;
 ---
 

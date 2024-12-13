@@ -10,8 +10,12 @@ import PageBanner from "@components/PageBanner.astro";
 import BlogCarrousel from "@components/BlogCarrousel.astro";
 import InnerNavbar from "@components/InnerNavbar.astro";
 import GetInTouchBanner from "@components/GetInTouchBanner.astro";
+import CommentContainer from "@components/CommentContainer.astro";
+import TextBanner from "@components/TextBanner.astro";
 
 import { getPages, getContentType } from "@utils/contentful_utils";
+
+export const prerender = true;
 
 export const getStaticPaths = (() => {
     return getPages("fr");
@@ -26,6 +30,8 @@ const elementTypes = {
     blogContainer: BlogCarrousel,
     innerNavbar: InnerNavbar,
     getInTouchBanner: GetInTouchBanner,
+    commentContainer: CommentContainer,
+    textBanner: TextBanner,
 };
 
 const {
