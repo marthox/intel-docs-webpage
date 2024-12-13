@@ -17,13 +17,16 @@ const lang = getLangFromUrl(Astro.url);
 <div class="comments-container">
     <ul class="comments-list">
         {
-            blogs.map((blog) => (
-                <Card
-                    title={blog.fields.title}
-                    body={blog.fields.enShortDescription}
-                    href={`/${lang}/blogs/${blog.fields.slug}`}
-                />
-            ))
+            blogs.map(
+                (blog) =>
+                    blog?.fields && (
+                        <Card
+                            title={blog.fields.title}
+                            body={blog.fields.enShortDescription}
+                            href={`/${lang}/blogs/${blog.fields.slug}`}
+                        />
+                    )
+            )
         }
     </ul>
 </div>
@@ -38,14 +41,14 @@ const lang = getLangFromUrl(Astro.url);
     .comments-list {
         display: flex;
         gap: 16px;
-        overflow-x: auto; 
+        overflow-x: auto;
         padding: 16px;
         scroll-snap-type: x mandatory;
-        list-style-type: none; 
+        list-style-type: none;
     }
 
     .comments-list::-webkit-scrollbar {
-        height: 8px; 
+        height: 8px;
     }
 
     .comments-list::-webkit-scrollbar-thumb {
@@ -54,7 +57,7 @@ const lang = getLangFromUrl(Astro.url);
     }
 
     .comments-list::-webkit-scrollbar-track {
-        background:#ffe9b5;
+        background: #ffe9b5;
         opacity: 0.5;
     }
 </style>

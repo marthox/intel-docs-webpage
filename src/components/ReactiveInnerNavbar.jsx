@@ -31,7 +31,9 @@ const InnerNavbar = ({ data }) => {
                 {data[innerNavbarCategoryContent].fields.cardCta?.map((cta) => {
                     return (
                         <div className="cta-card" key={cta.id}>
-                            <img src={cta?.fields.cardImage.fields.file.url} />
+                            <img
+                                src={cta?.fields?.cardImage?.fields?.file?.url}
+                            />
                             <button
                                 onClick={() =>
                                     (window.location.href = cta.fields.url)

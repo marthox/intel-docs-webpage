@@ -26,11 +26,10 @@ const {
                                 };
                             },
                             index: number
-                        ) => {
+                        ) =>
                             comment?.fields && (
                                 <CommentCard key={index} data={comment} />
-                            );
-                        }
+                            )
                     )
             }
             {
@@ -47,14 +46,13 @@ const {
                                 };
                             },
                             index: number
-                        ) => {
-                            return (
+                        ) =>
+                            comment?.fields && (
                                 <CommentCard
                                     key={`duplicate-${index}`}
                                     data={comment}
                                 />
-                            );
-                        }
+                            )
                     )
             }
         </div>

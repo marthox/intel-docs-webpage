@@ -7,7 +7,6 @@ const { key, data } = Astro.props;
 const {
     fields: { title: title, body: body, image: image, buttons: cta },
 } = data;
-console.log(cta);
 ---
 
 <section class="hero-banner">
@@ -30,7 +29,11 @@ console.log(cta);
             }
         </div>
     </div>
-    {image && <BannerImage key={key} css_class="hero-image" data={image} />}
+    {
+        image?.fields?.file?.url && (
+            <BannerImage key={key} css_class="hero-image" data={image} />
+        )
+    }
 </section>
 <style>
     .hero-text {
