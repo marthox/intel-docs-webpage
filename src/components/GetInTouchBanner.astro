@@ -11,9 +11,10 @@ const { id: id, title: title, ctas: ctas } = data.fields;
             {
                 ctas.map(
                     (cta: {
-                        fields: { text: string; url: string };
+                        fields?: { text: string; url: string };
                         sys: { id: string };
                     }) => {
+                        if (!cta?.fields) return null;
                         const {
                             fields: { text: text, url: url },
                         } = cta;

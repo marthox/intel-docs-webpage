@@ -1,6 +1,8 @@
 ---
 const { key, data, css_class } = Astro.props;
 
+console.log(data.fields);
+
 const {
     fields: { id: id, text: text, url: url },
 } = data;

@@ -5,6 +5,7 @@ const {
     fields: { id: id, title: title, body: body, jobAndCompany: jobAndCompany },
 } = data;
 ---
+
 <div class="comment-card" id={id}>
     <p class="comment-body">{body}</p>
     <h3 class="comment-title">{title}</h3>
@@ -19,16 +20,18 @@ const {
         padding: 16px;
         margin: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        min-width: 300px; 
-        max-width: 300px; 
-        flex: 0 0 auto; 
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        min-width: 300px;
+        max-width: 300px;
+        flex: 0 0 auto;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
     }
 
     .comment-card:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-}
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
     .comment-title {
         font-size: 1.25em;
@@ -48,5 +51,4 @@ const {
         display: block;
         margin-top: 1em;
     }
-
 </style>

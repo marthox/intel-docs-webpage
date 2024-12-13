@@ -16,7 +16,7 @@ const reverse = key % 2 === 0;
     <div class="banner-text">
         <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
-        {cta && <BannerCta data={cta}  key={key} css_class="page-cta"/>}
+        {cta?.fields && <BannerCta data={cta} key={key} css_class="page-cta" />}
     </div>
     <style>
         .page-banner {
@@ -40,12 +40,12 @@ const reverse = key % 2 === 0;
             .page-banner.reverse {
                 flex-direction: column;
             }
-            .banner-title{
+            .banner-title {
                 font-size: 30px;
                 margin-left: 1rem;
                 margin-right: 1rem;
             }
-            .banner-body{
+            .banner-body {
                 font-size: 16px;
                 margin-right: 1rem;
                 margin-left: 1rem;

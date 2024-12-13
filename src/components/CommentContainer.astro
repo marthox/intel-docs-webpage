@@ -7,90 +7,100 @@ const {
     fields: { title: title, commentsCards: commentCards },
 } = data;
 ---
+
 <section class="comment-container">
     <h2 class="section-title">{title}</h2>
     <div class="card-container">
         <div class="card-wrapper">
-            {commentCards &&
-                commentCards.length > 0 &&
-                commentCards.map(
-                    (
-                        comment: {
-                            fields: {
-                                id: string;
-                                title: string;
-                                body: string;
-                                jobAndCompany: string;
-                            };
-                        },
-                        index: number
-                    ) => {
-                        return <CommentCard key={index} data={comment} />;
-                    }
-                )}
-            {commentCards &&
-                commentCards.length > 0 &&
-                commentCards.map(
-                    (
-                        comment: {
-                            fields: {
-                                id: string;
-                                title: string;
-                                body: string;
-                                jobAndCompany: string;
-                            };
-                        },
-                        index: number
-                    ) => {
-                        return <CommentCard key={`duplicate-${index}`} data={comment} />;
-                    }
-                )}
+            {
+                commentCards &&
+                    commentCards.length > 0 &&
+                    commentCards.map(
+                        (
+                            comment: {
+                                fields: {
+                                    id: string;
+                                    title: string;
+                                    body: string;
+                                    jobAndCompany: string;
+                                };
+                            },
+                            index: number
+                        ) => {
+                            comment?.fields && (
+                                <CommentCard key={index} data={comment} />
+                            );
+                        }
+                    )
+            }
+            {
+                commentCards &&
+                    commentCards.length > 0 &&
+                    commentCards.map(
+                        (
+                            comment: {
+                                fields: {
+                                    id: string;
+                                    title: string;
+                                    body: string;
+                                    jobAndCompany: string;
+                                };
+                            },
+                            index: number
+                        ) => {
+                            return (
+                                <CommentCard
+                                    key={`duplicate-${index}`}
+                                    data={comment}
+                                />
+                            );
+                        }
+                    )
+            }
         </div>
     </div>
 </section>
 
 <style>
-.comment-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 16px;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.card-container {
-    overflow: hidden; 
-    position: relative;
-    width: 90%;
-    
-}
-
-.card-wrapper {
-    display: flex;
-    gap: 16px;
-    animation: scrollAnimation linear infinite;
-    width: max-content; 
-}
-
-
-.card-wrapper {
-    animation-duration: 30s;
-}
-
-/* Pausar animación al pasar el mouse */
-.card-container:hover .card-wrapper {
-    animation-play-state: paused;
-}
-
-@keyframes scrollAnimation {
-    0% {
-        transform: translateX(0);
+    .comment-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 16px;
     }
-    100% {
-        transform: translateX(-50%); 
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 1rem;
     }
-}
+
+    .card-container {
+        overflow: hidden;
+        position: relative;
+        width: 90%;
+    }
+
+    .card-wrapper {
+        display: flex;
+        gap: 16px;
+        animation: scrollAnimation linear infinite;
+        width: max-content;
+    }
+
+    .card-wrapper {
+        animation-duration: 30s;
+    }
+
+    /* Pausar animación al pasar el mouse */
+    .card-container:hover .card-wrapper {
+        animation-play-state: paused;
+    }
+
+    @keyframes scrollAnimation {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
 </style>

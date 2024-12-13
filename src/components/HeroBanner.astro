@@ -7,6 +7,7 @@ const { key, data } = Astro.props;
 const {
     fields: { title: title, body: body, image: image, buttons: cta },
 } = data;
+console.log(cta);
 ---
 
 <section class="hero-banner">
@@ -14,10 +15,20 @@ const {
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
         <div class="button-container">
-            { cta && cta.map((cta: any, key: number) => (
-              <BannerCta data={cta} key={key} css_class="button-hero" />
-            )) }
-          </div>
+            {
+                cta &&
+                    cta.map(
+                        (cta: any, key: number) =>
+                            cta?.fields && (
+                                <BannerCta
+                                    data={cta}
+                                    key={key}
+                                    css_class="button-hero"
+                                />
+                            )
+                    )
+            }
+        </div>
     </div>
     {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>
@@ -48,14 +59,14 @@ const {
 
     @keyframes grow {
         0% {
-    transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.02);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
 
     @media (max-width: 768px) {
@@ -72,5 +83,4 @@ const {
             margin-bottom: 1rem;
         }
     }
-
 </style>

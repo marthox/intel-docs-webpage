@@ -63,7 +63,7 @@ const test_dict: Navbar = {
             ))
         }
     </ul>
-    {cta && <BannerCta data={cta} key={1} css_class="navbar-button" />}
+    {cta?.fields && <BannerCta data={cta} key={1} css_class="navbar-button" />}
 </nav>
 
 <style>
