@@ -1,7 +1,17 @@
 ---
+import { client } from "@utils/contentful_utils";
+
 const { key, data } = Astro.props;
 
-const { id: id, title: title, ctas: ctas } = data.fields;
+const { id: id, title: title } = data.fields;
+
+const ctas = await Promise.all(
+    data.fields.ctas.map(async (cta: { sys: { id: string } }) => {
+        const ctaId = cta.sys.id;
+        const ctaData = await client.getEntry(ctaId);
+        return ctaData;
+    })
+);
 ---
 
 <section class="banner-content">

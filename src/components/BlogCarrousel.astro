@@ -17,7 +17,7 @@ const lang = getLangFromUrl(Astro.url);
 <div class="comments-container">
     <ul class="comments-list">
         {
-            blogs?.map(
+            blogs.map(
                 (blog) =>
                     blog?.fields && (
                         <Card

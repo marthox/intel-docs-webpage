@@ -1,11 +1,18 @@
 ---
 import CommentCard from "@components/CommentCard.astro";
+import { client } from "@utils/contentful_utils";
 
 const { key, data } = Astro.props;
 
-const {
-    fields: { title: title, commentsCards: commentCards },
-} = data;
+const { id: id, title: title } = data.fields;
+
+const commentCards = await Promise.all(
+    data.fields.commentsCards.map(async (comment: { sys: { id: string } }) => {
+        const commentId = comment.sys.id;
+        const commentData = await client.getEntry(commentId);
+        return commentData;
+    })
+);
 ---
 
 <section class="comment-container">
@@ -49,7 +56,7 @@ const {
                         ) =>
                             comment?.fields && (
                                 <CommentCard
-                                    key={`duplicate-${index}`}
+                                    key={index + commentCards.length}
                                     data={comment}
                                 />
                             )
@@ -80,12 +87,8 @@ const {
     .card-wrapper {
         display: flex;
         gap: 16px;
-        animation: scrollAnimation linear infinite;
+        animation: scrollAnimation 15s linear infinite;
         width: max-content;
-    }
-
-    .card-wrapper {
-        animation-duration: 30s;
     }
 
     /* Pausar animación al pasar el mouse */
@@ -98,7 +101,7 @@ const {
             transform: translateX(0);
         }
         100% {
-            transform: translateX(-50%);
+            transform: translateX(calc(-50% - 16px));
         }
     }
 </style>

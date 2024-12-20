@@ -1,11 +1,21 @@
 ---
 import ReactiveInnerNavbar from "@components/ReactiveInnerNavbar";
+import { client } from "@utils/contentful_utils";
 
 const { key, data } = Astro.props;
 
 const {
     fields: { title: title, innerNavbarCategory: innerNavbarCategory },
 } = data;
+
+await Promise.all(
+    innerNavbarCategory.map(async (category: any, index: number) => {
+        if (!category.fields) {
+            const entry = await client.getEntry(category.sys.id);
+            innerNavbarCategory[index] = { ...category, fields: entry.fields };
+        }
+    })
+);
 ---
 
 <section>
@@ -15,7 +25,7 @@ const {
         </h2>
     </div>
     {
-        innerNavbarCategory?.fields?.title && innerNavbarCategory.length > 0 ? (
+        innerNavbarCategory && innerNavbarCategory.length > 0 ? (
             <ReactiveInnerNavbar data={innerNavbarCategory} client:load />
         ) : null
     }
