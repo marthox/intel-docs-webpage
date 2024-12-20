@@ -15,7 +15,7 @@ const {
         </h2>
     </div>
     {
-        innerNavbarCategory && innerNavbarCategory.length > 0 ? (
+        innerNavbarCategory?.fields?.title && innerNavbarCategory.length > 0 ? (
             <ReactiveInnerNavbar data={innerNavbarCategory} client:load />
         ) : null
     }
