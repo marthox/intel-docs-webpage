@@ -1,6 +1,6 @@
 import * as contentful from "contentful";
 import "dotenv/config";
-import type { Entry } from "@interfaces/entry"; // Import the Entry interface
+import type { Entry } from "contentful";
 
 export const client = contentful.createClient({
     space: process.env.CONTENTFUL_SPACE_ID || "",
@@ -32,10 +32,14 @@ export const getPages = async (locale?: string) => {
         content_type: "page",
         locale,
     });
-    return entries.items.map((page) => ({
-        params: { page: page.fields.slug },
-        props: { page_data: page },
-    }));
+    const pages = entries.items.map((page: Entry) => {
+        const slug: string = page.fields.slug as string;
+        return {
+            params: { page: slug },
+            props: { page_data: page },
+        };
+    });
+    return pages;
 };
 
 export const getBlogs = async (locale?: string) => {
@@ -43,10 +47,13 @@ export const getBlogs = async (locale?: string) => {
         content_type: "blog",
         locale,
     });
-    return entries.items.map((blog) => ({
-        params: { blog: blog.fields.slug },
-        props: { blog_data: blog },
-    }));
+    return entries.items.map((blog: Entry) => {
+        const slug: string = blog.fields.slug as string;
+        return {
+            params: { blog: slug },
+            props: { blog_data: blog },
+        };
+    });
 };
 
 export const listBlogs = async (locale?: string) => {

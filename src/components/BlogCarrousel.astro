@@ -21,8 +21,8 @@ const lang = getLangFromUrl(Astro.url);
                 (blog) =>
                     blog?.fields && (
                         <Card
-                            title={blog.fields.title}
-                            body={blog.fields.enShortDescription}
+                            title={String(blog.fields.title)}
+                            body={String(blog.fields.enShortDescription)}
                             href={`/${lang}/blogs/${blog.fields.slug}`}
                         />
                     )

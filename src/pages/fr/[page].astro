@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
-import type { Entry } from "@interfaces/entry";
+import type { Entry } from "contentful";
 
 import Layout from "@layouts/Layout.astro";
 
@@ -44,12 +44,16 @@ const {
 } = page_data;
 ---
 
-<Layout title={tab_title} lang={locale} page_id={page_id}>
+<Layout
+    title={String(tab_title)}
+    lang={String(locale)}
+    page_id={String(page_id)}
+>
     {heroBanner ? <HeroBanner data={heroBanner} /> : null}
 
     {
-        pageElements && pageElements.length > 0
-            ? pageElements.map((element: object, index: number) => {
+        Array.isArray(pageElements) && pageElements.length > 0
+            ? pageElements.map((element, index: number) => {
                   const contentType = getContentType(element as Entry);
                   const ElementType =
                       elementTypes[contentType as keyof typeof elementTypes];
