@@ -1,6 +1,10 @@
 ---
 import { type Navbar } from "@interfaces/navbar";
 import BannerCta from "@components/BannerCta.astro";
+import { getLangFromUrl } from "@i18n/utils";
+import Logo from "@components/Logo.astro";
+
+import inteldocs_logo from "@assets/inteldocs_logo.svg?raw";
 
 const cta = {
     fields: {
@@ -10,28 +14,77 @@ const cta = {
     },
 };
 
-const test_dict: Navbar = {
-    solutions: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
-    products: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
-    resources: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
-    company: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
+const lang = getLangFromUrl(Astro.url);
+
+const dummyNavDict = {
+    solutions: {
+        by_use_case: {
+            "employee-file-management": `/en/${lang}/employee-file-management`,
+            "automated-invoice-processing": `/en/${lang}/automated-invoice-processing`,
+            "secure-document-archiving": `/en/${lang}/secure-document-archiving`,
+            "document-management": `/en/${lang}/document-management`,
+            "contract-management": `/en/${lang}/contract-management`,
+        },
+        by_industry: {
+            "employee-file-management": `/en/${lang}/employee-file-management`,
+            "automated-invoice-processing": `/en/${lang}/automated-invoice-processing`,
+            "secure-document-archiving": `/en/${lang}/secure-document-archiving`,
+            "document-management": `/en/${lang}/document-management`,
+            "contract-management": `/en/${lang}/contract-management`,
+        },
+        by_department: {
+            manufacturing: `/en/${lang}/manufacturing`,
+            "state-and-goverment": `/en/${lang}/state-and-goverment`,
+            "insurance-mutuals": `/en/${lang}/insurance-mutuals`,
+            services: `/en/${lang}/services`,
+        },
+    },
+    products: {
+        the_platform: {
+            "on-premises": `/en/${lang}/on-premises`,
+            cincom: `/en/${lang}/cincom`,
+        },
+        capabilities: {
+            "content-capture": `/en/${lang}/content-capture`,
+            "electronic-safe": `/en/${lang}/electronic-safe`,
+            workflow: `/en/${lang}/workflow`,
+            archiving: `/en/${lang}/archiving`,
+            indexing: `/en/${lang}/indexing`,
+            "expand-ecm": `/en/${lang}/expand-ecm`,
+            "electronic-signature": `/en/${lang}/electronic-signature`,
+            "robust-search": `/en/${lang}/robust-search`,
+        },
+        integration: {
+            "teams-integration": `/en/${lang}/teams-integration`,
+            "email-integration": `/en/${lang}/email-integration`,
+            "data-integration": `/en/${lang}/data-integration`,
+            "office-integration": `/en/${lang}/office-integration`,
+        },
+    },
+    resources: {
+        our_resources: {
+            ebook: `/en/${lang}/ebook`,
+            "case-studies": `/en/${lang}/case-studies`,
+            glossary: `/en/${lang}/glossary`,
+        },
+    },
+    company: {
+        "about-us": {
+            "who-we-are": `/en/${lang}/who-we-are`,
+            "about-ecm": `/en/${lang}/about-ecm`,
+            "client-testimonials": `/en/${lang}/client-testimonials`,
+            contact: `/en/${lang}/contact`,
+        },
+    },
+    partners: {
+        "our-partners": {
+            "become-a-partner": `/en/${lang}/become-a-partner`,
+            evaluate: `/en/${lang}/evaluate`,
+        },
+    },
 };
+
+const navDict: Navbar = dummyNavDict;
 ---
 
 <head>
@@ -44,19 +97,48 @@ const test_dict: Navbar = {
 </head>
 
 <nav class="navbar">
-    <a href="/en/home">Logo</a>
+    <a href="/en/home">
+        <Logo
+            css_class="header_logo"
+            logo={inteldocs_logo}
+            alt="IntelDocs Logo"
+        />
+    </a>
     <label for="menu-toggle"></label>
     <ul>
         {
-            Object.keys(test_dict).map((item) => (
+            Object.keys(navDict).map((category) => (
                 <li class="dropdown-container">
                     <button class="drop">
-                        {`${item.charAt(0).toUpperCase()}${item.slice(1).toLowerCase()}`}
+                        {`${category.charAt(0).toUpperCase()}${category.slice(1).toLowerCase()}`}
                         <i class="bi bi-chevron-down" />
                     </button>
                     <div class="dropdown">
-                        {test_dict[item as keyof Navbar].map((subItem) => (
-                            <a href={subItem.link}>{subItem.text}</a>
+                        {Object.keys(navDict[category]).map((subCategory) => (
+                            <div class="dropdown-column">
+                                <h4>
+                                    {subCategory
+                                        .replace(/_/g, " ")
+                                        .replace(/\b\w/g, (char) =>
+                                            char.toUpperCase()
+                                        )}
+                                </h4>
+                                {Object.keys(
+                                    navDict[category][subCategory]
+                                ).map((item) => (
+                                    <a
+                                        href={
+                                            navDict[category][subCategory][item]
+                                        }
+                                    >
+                                        {item
+                                            .replace(/-/g, " ")
+                                            .replace(/\b\w/g, (char) =>
+                                                char.toUpperCase()
+                                            )}
+                                    </a>
+                                ))}
+                            </div>
                         ))}
                     </div>
                 </li>
@@ -84,6 +166,7 @@ const test_dict: Navbar = {
         list-style: none;
         padding: 0;
         display: flex;
+        white-space: nowrap;
     }
     .navbar li {
         margin-right: 10px;
@@ -128,25 +211,37 @@ const test_dict: Navbar = {
     .dropdown {
         position: absolute;
         top: calc(100% + 10px);
-        width: 200%;
+        width: auto;
         border-radius: 10px;
         transition: opacity 0.3s ease-in-out;
         opacity: 0;
         pointer-events: none;
-        padding: 5px;
-        background: #f0f0f0;
+        padding: 20px;
+        background: #f8f8f8;
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
+    .dropdown-column {
+        margin-right: 30px;
+    }
+    .dropdown-column h4 {
+        margin-bottom: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        white-space: nowrap;
+        color: var(--primaryColorOne);
     }
     .dropdown a {
         text-decoration: none;
         border-radius: 5px;
         user-select: none;
-        font-size: 14px;
-        padding: 10px 20px;
+        font-size: 16px;
         cursor: pointer;
         display: block;
         width: 80%;
         color: black;
-        font-weight: 600;
+        font-weight: 400;
         transition: background-color 0.2s;
     }
     .dropdown a:hover {
@@ -156,40 +251,6 @@ const test_dict: Navbar = {
     .dropdown-container:focus-within .drop {
         color: var(--primaryColorOne);
         background-color: #e9f3fd;
-    }
-    .search-container {
-        position: relative;
-    }
-    .search-container input {
-        display: none;
-        padding: 8px 20px;
-        border-radius: 12px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        width: 200px;
-        transition: width 0.3s ease;
-    }
-    .search-container button {
-        border: none;
-        background: transparent;
-        cursor: pointer;
-    }
-    .search-container:focus-within .search-input {
-        display: block;
-        width: 200px;
-    }
-    .request {
-        padding: 10px 15px;
-        border-radius: 10px;
-        background-color: white;
-        border: 1px solid transparent;
-        cursor: pointer;
-        color: var(--primaryColorOne);
-        border: 1px solid var(--primaryColorOne);
-    }
-    .request:hover {
-        background-color: var(--primaryColorOne);
-        color: white;
     }
     button:hover {
         background-color: #e9f3fd;

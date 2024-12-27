@@ -1,25 +1,19 @@
 ---
-const { logo } = Astro.props;
+const { logo, css_class } = Astro.props;
 ---
 
-<div class="logo">
+<div class={css_class}>
     <Fragment set:html={logo} />
 </div>
 <style>
-    .logo {
+    .header_logo {
+        width: 200px;
+        height: auto;
+    }
+    .footer_logo {
         width: 20px;
         height: 20px;
         fill: var(--primaryBaseColor);
         stroke: var(--primaryBaseColor);
-    }
-    button {
-        padding: 0.5rem;
-        display: flex;
-        height: 3rem;
-        width: 3rem;
-    }
-    button:hover > .logo {
-        fill: var(--secondaryHighlightColor);
-        stroke: var(--secondaryHighlightColor);
     }
 </style>
