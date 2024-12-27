@@ -1,0 +1,400 @@
+---
+import BannerCta from "@components/BannerCta.astro";
+import { getLangFromUrl } from "@i18n/utils";
+import Logo from "@components/Logo.astro";
+
+import inteldocs_logo from "@assets/inteldocs_logo.svg?raw";
+
+const cta = {
+    fields: {
+        id: 1,
+        text: "Request a demo",
+        url: "/en/home",
+    },
+};
+
+const lang = getLangFromUrl(Astro.url);
+
+const dummyNavDict: { [key: string]: any } = {
+    solutions: {
+        by_use_case: {
+            "employee-file-management": `/${lang}/employee-file-management`,
+            "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
+            "secure-document-archiving": `/${lang}/secure-document-archiving`,
+            "document-management": `/${lang}/document-management`,
+            "contract-management": `/${lang}/contract-management`,
+        },
+        by_industry: {
+            "employee-file-management": `/${lang}/employee-file-management`,
+            "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
+            "secure-document-archiving": `/${lang}/secure-document-archiving`,
+            "document-management": `/${lang}/document-management`,
+            "contract-management": `/${lang}/contract-management`,
+        },
+        by_department: {
+            manufacturing: `/${lang}/manufacturing`,
+            "state-and-goverment": `/${lang}/state-and-goverment`,
+            "insurance-mutuals": `/${lang}/insurance-mutuals`,
+            services: `/${lang}/services`,
+        },
+    },
+    products: {
+        the_platform: {
+            "on-premises": `/${lang}/on-premises`,
+            cincom: `/${lang}/cincom`,
+        },
+        capabilities: {
+            "content-capture": `/${lang}/content-capture`,
+            "electronic-safe": `/${lang}/electronic-safe`,
+            workflow: `/${lang}/workflow`,
+            archiving: `/${lang}/archiving`,
+            indexing: `/${lang}/indexing`,
+            "expand-ecm": `/${lang}/expand-ecm`,
+            "electronic-signature": `/${lang}/electronic-signature`,
+            "robust-search": `/${lang}/robust-search`,
+        },
+        integration: {
+            "teams-integration": `/${lang}/teams-integration`,
+            "email-integration": `/${lang}/email-integration`,
+            "data-integration": `/${lang}/data-integration`,
+            "office-integration": `/${lang}/office-integration`,
+        },
+    },
+    resources: {
+        our_resources: {
+            ebook: `/${lang}/ebook`,
+            "case-studies": `/${lang}/case-studies`,
+            glossary: `/${lang}/glossary`,
+        },
+    },
+    company: {
+        "about-us": {
+            "who-we-are": `/${lang}/who-we-are`,
+            "about-ecm": `/${lang}/about-ecm`,
+            "client-testimonials": `/${lang}/client-testimonials`,
+            contact: `/${lang}/contact`,
+        },
+    },
+    partners: {
+        "our-partners": {
+            "become-a-partner": `/${lang}/become-a-partner`,
+            evaluate: `/${lang}/evaluate`,
+        },
+    },
+};
+
+const navDict = dummyNavDict;
+export interface Props {
+    class?: string;
+}
+---
+
+<nav class="mobile-navbar">
+    <div class="navbar-header">
+        <a href="/en/home">
+            <Logo
+                css_class="header_logo"
+                logo={inteldocs_logo}
+                alt="IntelDocs Logo"
+            />
+        </a>
+        <button class="hamburger-menu" aria-label="Toggle menu">
+            <i class="bi bi-list"></i>
+        </button>
+    </div>
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <button class="close-menu" aria-label="Close menu">
+                <i class="bi bi-x"></i>
+            </button>
+            <ul class="mobile-navbar-list">
+                {
+                    Object.keys(navDict).map((category) => (
+                        <li class="mobile-dropdown-container">
+                            <button class="mobile-dropdown-trigger">
+                                {category.charAt(0).toUpperCase() +
+                                    category.slice(1)}
+                                <i class="bi bi-chevron-down" />
+                            </button>
+                            <div class="mobile-dropdown">
+                                {Object.keys(navDict[category]).map(
+                                    (subCategory) => (
+                                        <div class="mobile-dropdown-column">
+                                            <h4>
+                                                {subCategory
+                                                    .replace(/_/g, " ")
+                                                    .replace(/\b\w/g, (c) =>
+                                                        c.toUpperCase()
+                                                    )}
+                                            </h4>
+                                            {Object.keys(
+                                                navDict[category][subCategory]
+                                            ).map((item) => (
+                                                <a
+                                                    href={
+                                                        navDict[category][
+                                                            subCategory
+                                                        ][item]
+                                                    }
+                                                    class="inner-link"
+                                                    data-dropdown-link
+                                                >
+                                                    {item
+                                                        .replace(/-/g, " ")
+                                                        .replace(/\b\w/g, (c) =>
+                                                            c.toUpperCase()
+                                                        )}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+        {
+            cta?.fields && (
+                <BannerCta data={cta} key={1} css_class="navbar-button" />
+            )
+        }
+    </div>
+</nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const hamburgerMenu = document.querySelector(".hamburger-menu");
+        const closeMenu = document.querySelector(".close-menu");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const mobileDropdownTriggers = document.querySelectorAll(
+            ".mobile-dropdown-trigger"
+        );
+        const mobileDropdowns = document.querySelectorAll(".mobile-dropdown");
+
+        if (hamburgerMenu && mobileMenu) {
+            hamburgerMenu.addEventListener("click", () => {
+                mobileMenu.classList.add("open");
+            });
+        }
+
+        if (closeMenu && mobileMenu) {
+            closeMenu.addEventListener("click", () => {
+                mobileMenu.classList.remove("open");
+            });
+        }
+
+        mobileDropdownTriggers.forEach((trigger) => {
+            const parent = trigger.closest(".mobile-dropdown-container");
+            if (!parent) return;
+            const dropdown = parent.querySelector(".mobile-dropdown");
+
+            trigger.addEventListener("click", (event) => {
+                event.stopPropagation();
+                if (!dropdown) return;
+                mobileDropdowns.forEach((d) => {
+                    if (d !== dropdown) {
+                        (d as HTMLElement).style.display = "none";
+                    }
+                });
+                (dropdown as HTMLElement).style.display =
+                    (dropdown as HTMLElement).style.display === "block"
+                        ? "none"
+                        : "block";
+            });
+        });
+
+        document.addEventListener("click", (event) => {
+            if (
+                event.target &&
+                !(event.target as Element).closest(".mobile-dropdown-container")
+            ) {
+                mobileDropdowns.forEach((dropdown) => {
+                    (dropdown as HTMLElement).style.display = "none";
+                });
+            }
+        });
+    });
+</script>
+
+<style>
+    .mobile-navbar {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 1rem;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 20;
+        align-items: center;
+    }
+
+    .navbar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 90%;
+    }
+
+    .hamburger-menu {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: white;
+        z-index: 30;
+        overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-menu-container {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        padding: 1rem;
+    }
+
+    .close-menu {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .mobile-navbar-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .mobile-navbar-list li {
+        position: relative;
+        width: 100%;
+    }
+
+    .mobile-navbar-button {
+        background-color: var(--primaryColorOne);
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: none;
+        margin-top: 1rem;
+    }
+
+    .mobile-navbar-button:hover {
+        background-color: #0056b3;
+    }
+
+    .mobile-dropdown-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .mobile-dropdown-trigger {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem; /* Increased font size */
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #333;
+        font-weight: bold;
+        width: 100%;
+        text-align: left;
+        padding: 1rem 0;
+    }
+
+    .mobile-dropdown-trigger:hover {
+        color: var(--primaryColorOne);
+    }
+
+    .bi-chevron-down {
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-dropdown-container
+        .mobile-dropdown-trigger[aria-expanded="true"]
+        .bi-chevron-down {
+        transform: rotate(180deg);
+    }
+
+    .mobile-dropdown {
+        display: none;
+        background: #ffffff;
+        padding: 1rem;
+        width: 100%;
+        /* Removed shadow and border */
+    }
+
+    .mobile-dropdown-column {
+        flex: 1;
+        width: 100%;
+    }
+
+    .mobile-dropdown h4 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primaryColorOne);
+        margin-bottom: 1rem;
+        text-transform: capitalize;
+    }
+
+    .mobile-dropdown a {
+        text-decoration: none;
+        color: #333;
+        font-size: 1rem;
+        padding: 0.75rem;
+        display: block;
+        border-radius: 0.25rem;
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+    }
+
+    .mobile-dropdown a:hover {
+        background-color: #e9f3fd;
+        color: var(--primaryColorOne);
+    }
+
+    @media (min-width: 769px) {
+        .mobile-navbar {
+            display: none;
+        }
+    }
+    @media (max-width: 768px) {
+        .mobile-navbar {
+            display: flex;
+        }
+    }
+</style>
+
+<style>
+    /* Add margin to the main content to avoid being covered by the mobile navbar */
+    main {
+        margin-top: 4rem; /* Adjust this value based on the height of your mobile navbar */
+    }
+</style>

@@ -175,5 +175,17 @@ const navDict: { [key: string]: { [key: string]: string } } = {
             font-size: 14px; /* Increase font size */
             margin-top: 40px; /* Increase margin-top */
         }
+
+        @media (max-width: 768px) {
+            .main-list {
+                flex-direction: column; /* Change flex direction to column on mobile */
+                align-items: flex-start; /* Align items to the left on mobile */
+            }
+
+            .social-icons {
+                justify-content: center; /* Align social icons to the left on mobile */
+                margin-left: 0; /* Remove left margin */
+            }
+        }
     </style>
 </nav>

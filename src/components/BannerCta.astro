@@ -1,12 +1,24 @@
 ---
+import { client } from "@utils/contentful_utils";
+import { getLangFromUrl } from "@i18n/utils";
+
 const { key, data, css_class } = Astro.props;
 
 const {
     fields: { id: id, text: text, url: url },
 } = data;
+
+const ctaPage =
+    data.fields.ctaPage?.sys.id &&
+    (await client.getEntry(data.fields.ctaPage.sys.id));
+
+const ctaPageUrl = ctaPage?.fields.slug;
+const lang = getLangFromUrl(Astro.url);
+
+const pageUrl = ctaPageUrl ? `/${lang}/${ctaPageUrl}` : url;
 ---
 
-<a class={css_class} id={id} href={url} role="button">
+<a class={css_class} id={id} href={pageUrl} role="button">
     {text}
 </a>
 <style>
@@ -59,17 +71,16 @@ const {
         margin-top: 10px;
         padding: 10px;
         border-radius: 10px;
-        background-color: transparent;
-        color: var(--primaryColorOne);
-        border: 1px solid var(--primaryColorOne);
+        background-color: var(--primaryColorTwo); /* Match color */
+        color: black; /* Match color */
         cursor: pointer;
         text-decoration: none;
         transition: all 0.3s ease-in-out;
     }
 
     .button-hero:hover {
-        background-color: var(--primaryColorOne);
-        color: white;
+        background-color: black; /* Match hover color */
+        color: white; /* Match hover color */
         transform: scale(1.1);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }

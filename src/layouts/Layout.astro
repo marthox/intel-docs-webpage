@@ -2,6 +2,7 @@
 import "@styles/reset.css";
 
 import Navbar from "@components/Navbar.astro";
+import MobileNavbar from "@components/MobileNavbar.astro";
 import Footer from "@components/Footer.astro";
 
 import { getPageColors } from "@utils/contentful_utils";
@@ -27,7 +28,8 @@ const { title, lang, page_id } = Astro.props;
         <title>{title}</title>
     </head>
     <body id={page_id}>
-        <Navbar />
+        <Navbar class="desktop-navbar" />
+        <MobileNavbar class="mobile-navbar" />
         <div class="page-container">
             <slot />
         </div>
@@ -36,6 +38,22 @@ const { title, lang, page_id } = Astro.props;
 </html>
 <style is:global define:vars={vars}>
     /* Classes */
+    @media (min-width: 769px) {
+        .desktop-navbar {
+            display: block;
+        }
+        .mobile-navbar {
+            display: none;
+        }
+    }
+    @media (max-width: 768px) {
+        .desktop-navbar {
+            display: none;
+        }
+        .mobile-navbar {
+            display: block;
+        }
+    }
     .page-container {
         display: flex;
         flex-direction: column;
