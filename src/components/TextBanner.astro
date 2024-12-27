@@ -17,11 +17,22 @@ const {
 </section>
 <style>
     .text-banner {
+        width: 60%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 2rem;
         margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .text-banner {
+            width: 90%;
+        }
+
+        .text-banner h2 {
+            text-align: center;
+        }
     }
 </style>

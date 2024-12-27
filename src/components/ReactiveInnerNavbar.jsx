@@ -16,9 +16,7 @@ const InnerNavbar = ({ data }) => {
                     return (
                         <button
                             key={`${category.sys.id}${index}`}
-                            onClick={(prev) =>
-                                setInnerNavbarCategoryContent(index)
-                            }
+                            onClick={() => setInnerNavbarCategoryContent(index)}
                         >
                             <a href={url} className="cta">
                                 {title}
