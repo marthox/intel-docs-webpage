@@ -15,45 +15,57 @@ const {
 const reverse = key % 2 === 0;
 ---
 
-<section class={`page-banner ${reverse ? "" : "reverse"}`}>
+<section
+    class={`page-banner ${reverse ? "" : "reverse"} ${image ? "" : "no-image"}`}
+>
     {image && <BannerImage data={image} key={key} css_class="page-image" />}
     <div class="banner-text">
         <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
         {cta && <BannerCta data={cta} key={key} css_class="page-cta" />}
     </div>
-    <style>
+</section>
+<style>
+    .page-banner {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        background-color: var(--secondaryColorOne);
+    }
+    .page-banner.reverse {
+        flex-direction: row-reverse;
+    }
+    .page-banner.no-image .banner-text {
+        width: 100%;
+    }
+    .banner-text {
+        width: 50%;
+        display: flex;
+        gap: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        margin-top: 60px;
+        margin-left: 60px;
+        margin-right: 80px;
+    }
+    @media (max-width: 768px) {
         .page-banner {
-            gap: 2rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--secondaryColorOne);
+            flex-direction: column;
         }
         .page-banner.reverse {
-            flex-direction: row-reverse;
+            flex-direction: column;
+        }
+        .banner-title {
+            font-size: 30px;
+            margin-left: 1rem;
+            margin-right: 1rem;
         }
         .banner-body {
-            margin-top: 2rem;
+            font-size: 16px;
+            margin-right: 1rem;
+            margin-left: 1rem;
         }
-        @media (max-width: 768px) {
-            .page-banner {
-                flex-direction: column;
-            }
-            .page-banner.reverse {
-                flex-direction: column;
-            }
-            .banner-title {
-                font-size: 30px;
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-            .banner-body {
-                font-size: 16px;
-                margin-right: 1rem;
-                margin-left: 1rem;
-            }
-        }
-    </style>
-</section>
+    }
+</style>
