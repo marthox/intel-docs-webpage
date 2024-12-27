@@ -1,8 +1,12 @@
 ---
+import { client } from "@utils/contentful_utils";
+
 import BannerImage from "@components/BannerImage.astro";
 import BannerCta from "@components/BannerCta.astro";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
+
+const data = await client.getEntry(id);
 
 const {
     fields: { title: title, body: body, image: image, cta: cta },
@@ -12,15 +16,11 @@ const reverse = key % 2 === 0;
 ---
 
 <section class={`page-banner ${reverse ? "" : "reverse"}`}>
-    {
-        image?.fields?.file?.url && (
-            <BannerImage data={image} key={key} css_class="page-image" />
-        )
-    }
+    {image && <BannerImage data={image} key={key} css_class="page-image" />}
     <div class="banner-text">
         <h2 class="banner-title">{title}</h2>
         <p class="banner-body">{body}</p>
-        {cta?.fields && <BannerCta data={cta} key={key} css_class="page-cta" />}
+        {cta && <BannerCta data={cta} key={key} css_class="page-cta" />}
     </div>
     <style>
         .page-banner {

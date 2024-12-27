@@ -1,16 +1,6 @@
 ---
 const { key, data, css_class } = Astro.props;
 
-if (
-    !data ||
-    !data.fields ||
-    !data.fields.id ||
-    !data.fields.text ||
-    !data.fields.url
-) {
-    return null;
-}
-
 const {
     fields: { id: id, text: text, url: url },
 } = data;

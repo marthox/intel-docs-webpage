@@ -1,19 +1,29 @@
 ---
 import ReactiveInnerNavbar from "@components/ReactiveInnerNavbar";
 import { client } from "@utils/contentful_utils";
+import type { Entry } from "contentful";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
 
-const {
-    fields: { title: title, innerNavbarCategory: innerNavbarCategory },
-} = data;
+const data = await client.getEntry(id);
 
-await Promise.all(
-    innerNavbarCategory.map(async (category: any, index: number) => {
-        if (!category.fields) {
-            const entry = await client.getEntry(category.sys.id);
-            innerNavbarCategory[index] = { ...category, fields: entry.fields };
-        }
+const innerNavbarCategory = data.fields.innerNavbarCategory as Entry[];
+const title = data.fields.title as string;
+
+const categoriesWithCta = await Promise.all(
+    innerNavbarCategory?.map(async (category: Entry) => {
+        const categoryData = await client.getEntry(category.sys.id);
+        const cardsCta = categoryData.fields.cardCta as Entry[];
+
+        const cardCta = await Promise.all(
+            cardsCta.map(async (cta: Entry) => {
+                const ctaData = await client.getEntry(cta.sys.id);
+                return ctaData;
+            })
+        );
+
+        categoryData.fields.cardCta = cardCta;
+        return categoryData;
     })
 );
 ---
@@ -25,8 +35,8 @@ await Promise.all(
         </h2>
     </div>
     {
-        innerNavbarCategory && innerNavbarCategory.length > 0 ? (
-            <ReactiveInnerNavbar data={innerNavbarCategory} client:load />
+        categoriesWithCta && categoriesWithCta.length > 0 ? (
+            <ReactiveInnerNavbar data={categoriesWithCta} client:load />
         ) : null
     }
 </section>

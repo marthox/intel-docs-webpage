@@ -1,12 +1,17 @@
 ---
 import { client } from "@utils/contentful_utils";
+import type { Entry } from "contentful";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
 
-const { id: id, title: title } = data.fields;
+const data = await client.getEntry(id);
+
+const ctas_arr = data.fields.ctas as Entry[];
+
+const { title: title } = data.fields;
 
 const ctas = await Promise.all(
-    data.fields.ctas.map(async (cta: { sys: { id: string } }) => {
+    ctas_arr.map(async (cta: { sys: { id: string } }) => {
         const ctaId = cta.sys.id;
         const ctaData = await client.getEntry(ctaId);
         return ctaData;
@@ -19,24 +24,17 @@ const ctas = await Promise.all(
         <h2>{title}</h2>
         <div class="cta-container">
             {
-                ctas.map(
-                    (cta: {
-                        fields?: { text: string; url: string };
-                        sys: { id: string };
-                    }) => {
-                        if (!cta?.fields) return null;
-                        const {
-                            fields: { text: text, url: url },
-                        } = cta;
-                        return (
-                            <button>
-                                <a href={url} class="cta">
-                                    {text}
-                                </a>
-                            </button>
-                        );
-                    }
-                )
+                ctas.map((cta) => {
+                    const text = cta.fields.text as string;
+                    const url = cta.fields.url as string;
+                    return (
+                        <button>
+                            <a href={url} class="cta">
+                                {text}
+                            </a>
+                        </button>
+                    );
+                })
             }
         </div>
     </div>

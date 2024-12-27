@@ -36,7 +36,7 @@ export const getPages = async (locale?: string) => {
         const slug: string = page.fields.slug as string;
         return {
             params: { page: slug },
-            props: { page_data: page },
+            props: { page_id: page.sys.id },
         };
     });
     return pages;

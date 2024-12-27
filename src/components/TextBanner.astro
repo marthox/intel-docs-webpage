@@ -1,7 +1,10 @@
 ---
 import TextBannerContent from "@components/TextBannerContent.astro";
+import { client } from "@utils/contentful_utils";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
+
+const data = await client.getEntry(id);
 
 const {
     fields: { title: title, bodyTextBanner: body },

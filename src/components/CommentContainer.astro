@@ -1,13 +1,18 @@
 ---
 import CommentCard from "@components/CommentCard.astro";
 import { client } from "@utils/contentful_utils";
+import type { Entry } from "contentful";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
 
-const { id: id, title: title } = data.fields;
+const data = await client.getEntry(id);
+
+const { title: title } = data.fields;
+
+const commentsCard = data.fields.commentsCards as Entry[];
 
 const commentCards = await Promise.all(
-    data.fields.commentsCards.map(async (comment: { sys: { id: string } }) => {
+    commentsCard.map(async (comment: { sys: { id: string } }) => {
         const commentId = comment.sys.id;
         const commentData = await client.getEntry(commentId);
         return commentData;
@@ -23,18 +28,8 @@ const commentCards = await Promise.all(
                 commentCards &&
                     commentCards.length > 0 &&
                     commentCards.map(
-                        (
-                            comment: {
-                                fields: {
-                                    id: string;
-                                    title: string;
-                                    body: string;
-                                    jobAndCompany: string;
-                                };
-                            },
-                            index: number
-                        ) =>
-                            comment?.fields && (
+                        (comment, index) =>
+                            comment && (
                                 <CommentCard key={index} data={comment} />
                             )
                     )
@@ -43,17 +38,7 @@ const commentCards = await Promise.all(
                 commentCards &&
                     commentCards.length > 0 &&
                     commentCards.map(
-                        (
-                            comment: {
-                                fields: {
-                                    id: string;
-                                    title: string;
-                                    body: string;
-                                    jobAndCompany: string;
-                                };
-                            },
-                            index: number
-                        ) =>
+                        (comment, index) =>
                             comment?.fields && (
                                 <CommentCard
                                     key={index + commentCards.length}

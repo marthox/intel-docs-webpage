@@ -28,7 +28,7 @@ const InnerNavbar = ({ data }) => {
                 })}
             </nav>
             <div className="reactive-inner-navbar-container">
-                {data[innerNavbarCategoryContent].fields.cardCta?.map((cta) => {
+                {data[innerNavbarCategoryContent].fields.cardCta.map((cta) => {
                     return (
                         <div className="cta-card" key={cta.id}>
                             <img

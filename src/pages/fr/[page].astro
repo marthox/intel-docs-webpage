@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import type { Entry } from "contentful";
 
+import { client } from "@utils/contentful_utils";
 import Layout from "@layouts/Layout.astro";
 
 import HeroBanner from "@components/HeroBanner.astro";
@@ -21,11 +22,11 @@ export const getStaticPaths = (() => {
     return getPages("fr");
 }) satisfies GetStaticPaths;
 
-const { page_data } = Astro.props;
+const { page_id } = Astro.props;
 
 const elementTypes = {
-    pageBanner: PageBanner,
     heroBanner: HeroBanner,
+    pageBanner: PageBanner,
     eventBanner: EventBanner,
     blogContainer: BlogCarrousel,
     innerNavbar: InnerNavbar,
@@ -34,31 +35,29 @@ const elementTypes = {
     textBanner: TextBanner,
 };
 
-const {
-    sys: { locale: locale, id: page_id },
-    fields: {
-        tabTitle: tab_title,
-        heroBanner: heroBanner,
-        pageElements: pageElements,
-    },
-} = page_data;
+const page_data = await client.getEntry(page_id);
+
+const locale = page_data.sys.locale as string;
+const tabTitle = page_data.fields.tabTitle as string;
+
+const heroBanner = page_data.fields.heroBanner as Entry;
+const heroBannerId = heroBanner.sys.id as string;
+
+const pageElements = page_data.fields.pageElements as Array<Entry>;
 ---
 
-<Layout
-    title={String(tab_title)}
-    lang={String(locale)}
-    page_id={String(page_id)}
->
-    {heroBanner ? <HeroBanner data={heroBanner} /> : null}
+<Layout title={tabTitle} lang={locale} page_id={page_id}>
+    {heroBannerId ? <HeroBanner id={heroBannerId} /> : null}
 
     {
         Array.isArray(pageElements) && pageElements.length > 0
-            ? pageElements.map((element, index: number) => {
-                  const contentType = getContentType(element as Entry);
+            ? pageElements.map((element: Entry, index: number) => {
+                  const elementId = element.sys.id as string;
+                  const contentType = getContentType(element);
                   const ElementType =
                       elementTypes[contentType as keyof typeof elementTypes];
                   return ElementType ? (
-                      <ElementType key={index} data={element} />
+                      <ElementType key={index} id={elementId} />
                   ) : null;
               })
             : null

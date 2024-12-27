@@ -1,18 +1,7 @@
 ---
 type CssClass = "banner-image" | "hero-image" | "event-image" | "page-image";
 
-interface Props {
-    key: string;
-    data: {
-        fields: {
-            file: { url: string };
-            description: string;
-        };
-    };
-    css_class: CssClass;
-}
-
-const { key, data, css_class }: Props = Astro.props;
+const { key, data, css_class } = Astro.props;
 
 const {
     fields: {
@@ -42,7 +31,7 @@ const {
         object-fit: cover;
     }
 
-    .page-image{
+    .page-image {
         max-width: 40%;
         object-fit: cover;
     }
@@ -58,7 +47,7 @@ const {
             min-width: 100%;
             margin-bottom: 1rem;
         }
-        .page-image{
+        .page-image {
             min-width: 60%;
         }
     }

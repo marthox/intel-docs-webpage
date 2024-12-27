@@ -1,9 +1,13 @@
 ---
+import { client } from "@utils/contentful_utils";
+
 import { listBlogs } from "@utils/contentful_utils";
 import { getLangFromUrl } from "@i18n/utils";
 import Card from "@components/Card.astro";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
+
+const data = await client.getEntry(id);
 
 const {
     fields: { title: title },

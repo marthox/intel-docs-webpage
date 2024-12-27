@@ -1,8 +1,12 @@
 ---
+import { client } from "@utils/contentful_utils";
+
 import BannerImage from "@components/BannerImage.astro";
 import BannerCta from "@components/BannerCta.astro";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
+
+const data = await client.getEntry(id);
 
 const {
     fields: {
@@ -17,11 +21,7 @@ const {
 ---
 
 <section class="event-banner">
-    {
-        image?.fields?.file?.url && (
-            <BannerImage key={key} css_class="event-image" data={image} />
-        )
-    }
+    {image && <BannerImage key={key} css_class="event-image" data={image} />}
     <div class="event-text">
         <h2 class="event-title">{title}</h2>
         <p class="event-body">{body}</p>
@@ -58,11 +58,7 @@ const {
                     {location}
                 </span>
             </div>
-            {
-                cta?.fields && (
-                    <BannerCta data={cta} key={key} css_class="button-cta" />
-                )
-            }
+            {cta && <BannerCta data={cta} key={key} css_class="button-cta" />}
         </div>
     </div>
 </section>

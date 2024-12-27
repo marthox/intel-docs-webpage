@@ -1,12 +1,18 @@
 ---
+import { client } from "@utils/contentful_utils";
+
 import BannerImage from "@components/BannerImage.astro";
 import BannerCta from "@components/BannerCta.astro";
+import type { Entry } from "contentful";
 
-const { key, data } = Astro.props;
+const { key, id } = Astro.props;
 
-const {
-    fields: { title: title, body: body, image: image, buttons: cta },
-} = data;
+const data = await client.getEntry(id);
+
+const title = data.fields.title as string;
+const body = data.fields.body as string;
+const image = data.fields.image as Entry;
+const cta = data.fields.buttons as Entry[];
 ---
 
 <section class="hero-banner">
@@ -18,7 +24,7 @@ const {
                 cta &&
                     cta.map(
                         (cta: any, key: number) =>
-                            cta?.fields && (
+                            cta.fields && (
                                 <BannerCta
                                     data={cta}
                                     key={key}
@@ -29,11 +35,7 @@ const {
             }
         </div>
     </div>
-    {
-        image?.fields?.file?.url && (
-            <BannerImage key={key} css_class="hero-image" data={image} />
-        )
-    }
+    {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>
 <style>
     .hero-text {
