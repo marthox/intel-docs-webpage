@@ -22,7 +22,7 @@ export const getStaticPaths = (() => {
     return getPages();
 }) satisfies GetStaticPaths;
 
-const { page_id } = Astro.props;
+const { page_data } = Astro.props;
 
 const elementTypes = {
     heroBanner: HeroBanner,
@@ -35,19 +35,19 @@ const elementTypes = {
     textBanner: TextBanner,
 };
 
-const page_data = await client.getEntry(page_id);
+// const page_data = await client.getEntry(page_id);
 
+const page_id = page_data.sys.id as string;
 const locale = page_data.sys.locale as string;
 const tabTitle = page_data.fields.tabTitle as string;
 
 const heroBanner = page_data.fields.heroBanner as Entry;
-const heroBannerId = heroBanner.sys.id as string;
 
 const pageElements = page_data.fields.pageElements as Array<Entry>;
 ---
 
 <Layout title={tabTitle} lang={locale} page_id={page_id}>
-    {heroBannerId ? <HeroBanner id={heroBannerId} /> : null}
+    {heroBanner ? <HeroBanner id={heroBanner.sys.id} /> : null}
 
     {
         Array.isArray(pageElements) && pageElements.length > 0
