@@ -16,75 +16,75 @@ const cta = {
 
 const lang = getLangFromUrl(Astro.url);
 
-const dummyNavDict = {
+const dummyNavDict: { [key: string]: any } = {
     solutions: {
         by_use_case: {
-            "employee-file-management": `/en/${lang}/employee-file-management`,
-            "automated-invoice-processing": `/en/${lang}/automated-invoice-processing`,
-            "secure-document-archiving": `/en/${lang}/secure-document-archiving`,
-            "document-management": `/en/${lang}/document-management`,
-            "contract-management": `/en/${lang}/contract-management`,
+            "employee-file-management": `/${lang}/employee-file-management`,
+            "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
+            "secure-document-archiving": `/${lang}/secure-document-archiving`,
+            "document-management": `/${lang}/document-management`,
+            "contract-management": `/${lang}/contract-management`,
         },
         by_industry: {
-            "employee-file-management": `/en/${lang}/employee-file-management`,
-            "automated-invoice-processing": `/en/${lang}/automated-invoice-processing`,
-            "secure-document-archiving": `/en/${lang}/secure-document-archiving`,
-            "document-management": `/en/${lang}/document-management`,
-            "contract-management": `/en/${lang}/contract-management`,
+            "employee-file-management": `/${lang}/employee-file-management`,
+            "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
+            "secure-document-archiving": `/${lang}/secure-document-archiving`,
+            "document-management": `/${lang}/document-management`,
+            "contract-management": `/${lang}/contract-management`,
         },
         by_department: {
-            manufacturing: `/en/${lang}/manufacturing`,
-            "state-and-goverment": `/en/${lang}/state-and-goverment`,
-            "insurance-mutuals": `/en/${lang}/insurance-mutuals`,
-            services: `/en/${lang}/services`,
+            manufacturing: `/${lang}/manufacturing`,
+            "state-and-goverment": `/${lang}/state-and-goverment`,
+            "insurance-mutuals": `/${lang}/insurance-mutuals`,
+            services: `/${lang}/services`,
         },
     },
     products: {
         the_platform: {
-            "on-premises": `/en/${lang}/on-premises`,
-            cincom: `/en/${lang}/cincom`,
+            "on-premises": `/${lang}/on-premises`,
+            cincom: `/${lang}/cincom`,
         },
         capabilities: {
-            "content-capture": `/en/${lang}/content-capture`,
-            "electronic-safe": `/en/${lang}/electronic-safe`,
-            workflow: `/en/${lang}/workflow`,
-            archiving: `/en/${lang}/archiving`,
-            indexing: `/en/${lang}/indexing`,
-            "expand-ecm": `/en/${lang}/expand-ecm`,
-            "electronic-signature": `/en/${lang}/electronic-signature`,
-            "robust-search": `/en/${lang}/robust-search`,
+            "content-capture": `/${lang}/content-capture`,
+            "electronic-safe": `/${lang}/electronic-safe`,
+            workflow: `/${lang}/workflow`,
+            archiving: `/${lang}/archiving`,
+            indexing: `/${lang}/indexing`,
+            "expand-ecm": `/${lang}/expand-ecm`,
+            "electronic-signature": `/${lang}/electronic-signature`,
+            "robust-search": `/${lang}/robust-search`,
         },
         integration: {
-            "teams-integration": `/en/${lang}/teams-integration`,
-            "email-integration": `/en/${lang}/email-integration`,
-            "data-integration": `/en/${lang}/data-integration`,
-            "office-integration": `/en/${lang}/office-integration`,
+            "teams-integration": `/${lang}/teams-integration`,
+            "email-integration": `/${lang}/email-integration`,
+            "data-integration": `/${lang}/data-integration`,
+            "office-integration": `/${lang}/office-integration`,
         },
     },
     resources: {
         our_resources: {
-            ebook: `/en/${lang}/ebook`,
-            "case-studies": `/en/${lang}/case-studies`,
-            glossary: `/en/${lang}/glossary`,
+            ebook: `/${lang}/ebook`,
+            "case-studies": `/${lang}/case-studies`,
+            glossary: `/${lang}/glossary`,
         },
     },
     company: {
         "about-us": {
-            "who-we-are": `/en/${lang}/who-we-are`,
-            "about-ecm": `/en/${lang}/about-ecm`,
-            "client-testimonials": `/en/${lang}/client-testimonials`,
-            contact: `/en/${lang}/contact`,
+            "who-we-are": `/${lang}/who-we-are`,
+            "about-ecm": `/${lang}/about-ecm`,
+            "client-testimonials": `/${lang}/client-testimonials`,
+            contact: `/${lang}/contact`,
         },
     },
     partners: {
         "our-partners": {
-            "become-a-partner": `/en/${lang}/become-a-partner`,
-            evaluate: `/en/${lang}/evaluate`,
+            "become-a-partner": `/${lang}/become-a-partner`,
+            evaluate: `/${lang}/evaluate`,
         },
     },
 };
 
-const navDict: Navbar = dummyNavDict;
+const navDict = dummyNavDict;
 ---
 
 <head>
@@ -104,13 +104,12 @@ const navDict: Navbar = dummyNavDict;
             alt="IntelDocs Logo"
         />
     </a>
-    <label for="menu-toggle"></label>
-    <ul>
+    <ul class="navbar-list">
         {
             Object.keys(navDict).map((category) => (
                 <li class="dropdown-container">
-                    <button class="drop">
-                        {`${category.charAt(0).toUpperCase()}${category.slice(1).toLowerCase()}`}
+                    <button class="dropdown-trigger">
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
                         <i class="bi bi-chevron-down" />
                     </button>
                     <div class="dropdown">
@@ -119,8 +118,8 @@ const navDict: Navbar = dummyNavDict;
                                 <h4>
                                     {subCategory
                                         .replace(/_/g, " ")
-                                        .replace(/\b\w/g, (char) =>
-                                            char.toUpperCase()
+                                        .replace(/\b\w/g, (c) =>
+                                            c.toUpperCase()
                                         )}
                                 </h4>
                                 {Object.keys(
@@ -130,11 +129,13 @@ const navDict: Navbar = dummyNavDict;
                                         href={
                                             navDict[category][subCategory][item]
                                         }
+                                        class="inner-link"
+                                        data-dropdown-link
                                     >
                                         {item
                                             .replace(/-/g, " ")
-                                            .replace(/\b\w/g, (char) =>
-                                                char.toUpperCase()
+                                            .replace(/\b\w/g, (c) =>
+                                                c.toUpperCase()
                                             )}
                                     </a>
                                 ))}
@@ -148,111 +149,212 @@ const navDict: Navbar = dummyNavDict;
     {cta?.fields && <BannerCta data={cta} key={1} css_class="navbar-button" />}
 </nav>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Manage dropdown toggling
+        const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
+        const dropdownLinks = document.querySelectorAll("[data-dropdown-link]");
+        const dropdowns = document.querySelectorAll(".dropdown");
+
+        dropdownTriggers.forEach((trigger) => {
+            const parent = trigger.closest(".dropdown-container");
+            if (!parent) return;
+            const dropdown = parent.querySelector(".dropdown");
+
+            trigger.addEventListener("click", (event) => {
+                event.stopPropagation();
+                if (!dropdown) return;
+                dropdowns.forEach((d) => {
+                    if (d !== dropdown) {
+                        (d as HTMLElement).style.display = "none";
+                    }
+                });
+                (dropdown as HTMLElement).style.display =
+                    (dropdown as HTMLElement).style.display === "flex"
+                        ? "none"
+                        : "flex";
+            });
+        });
+
+        dropdownLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                dropdowns.forEach((dropdown) => {
+                    (dropdown as HTMLElement).style.display = "none";
+                });
+            });
+        });
+
+        document.addEventListener("click", (event) => {
+            if (
+                event.target &&
+                !(event.target as Element).closest(".dropdown-container")
+            ) {
+                dropdowns.forEach((dropdown) => {
+                    (dropdown as HTMLElement).style.display = "none";
+                });
+            }
+        });
+    });
+</script>
+
 <style>
+    /* General Styles */
     .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         background-color: white;
-        padding: 35px;
+        padding: 1rem 2rem;
         position: sticky;
         top: 0;
-        z-index: 2;
-        font-size: 18px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 4rem;
+        z-index: 10;
+        width: 80%;
     }
-    .navbar ul {
+
+    .navbar-list {
+        display: flex;
         list-style: none;
+        margin: 0;
         padding: 0;
-        display: flex;
-        white-space: nowrap;
+        gap: 3rem; /* Increased gap between navbar items */
     }
-    .navbar li {
-        margin-right: 10px;
+
+    .navbar-list li {
         position: relative;
     }
-    .navbar a {
-        color: black;
-        text-decoration: none;
-        padding: 10px;
-        display: block;
-    }
-    .navbar a:hover {
-        background-color: #e9f3fd;
-    }
-    .drop {
-        padding: 10px 25px;
-        border-radius: 12px;
-        background-color: white;
-        border: 1px solid transparent;
+
+    .navbar-button {
+        background-color: var(
+            --primaryColorOne
+        ); /* Changed color to use CSS variable */
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.25rem;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        font-size: 1rem;
+        text-decoration: none;
     }
-    .drop i {
-        transition: transform 0.3s ease-in-out;
-        margin-left: 10px;
-        display: inline-block;
+
+    .navbar-button:hover {
+        background-color: #0056b3;
     }
-    .drop:focus {
-        pointer-events: none;
-    }
-    .drop:focus ~ .dropdown {
-        top: calc(100% + 10px);
-        opacity: 1;
-        pointer-events: auto;
-    }
-    .drop:focus i {
-        transform: rotate(180deg);
-    }
+
+    /* Dropdown Styles */
     .dropdown-container {
         position: relative;
     }
-    .dropdown {
-        position: absolute;
-        top: calc(100% + 10px);
-        width: auto;
-        border-radius: 10px;
-        transition: opacity 0.3s ease-in-out;
-        opacity: 0;
-        pointer-events: none;
-        padding: 20px;
-        background: #f8f8f8;
+
+    .dropdown-trigger {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
         display: flex;
-        flex-direction: row;
-        gap: 30px;
+        align-items: center;
+        gap: 0.5rem;
+        color: #333;
+        font-weight: bold;
     }
+
+    .dropdown-trigger:hover {
+        color: var(--primaryColorOne); /* Changed color to use CSS variable */
+    }
+
+    .bi-chevron-down {
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown-container
+        .dropdown-trigger[aria-expanded="true"]
+        .bi-chevron-down {
+        transform: rotate(180deg);
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+        display: none;
+        position: absolute;
+        top: 110%;
+        left: 0;
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 0.5rem;
+        min-width: 14rem;
+        padding: 1.5rem;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease-in-out;
+        gap: 2rem;
+    }
+
     .dropdown-column {
-        margin-right: 30px;
+        flex: 1;
+        min-width: 12rem;
     }
-    .dropdown-column h4 {
-        margin-bottom: 15px;
-        font-size: 20px;
-        font-weight: 500;
-        white-space: nowrap;
-        color: var(--primaryColorOne);
+
+    .dropdown-column:last-child {
+        margin-bottom: 0;
     }
+
+    .dropdown h4 {
+        margin: 0;
+        font-size: 1.1rem; /* Increased font size */
+        font-weight: 700; /* Increased font weight */
+        color: var(--primaryColorOne); /* Changed color to use CSS variable */
+        margin-bottom: 1rem; /* Increased margin-bottom */
+        text-transform: capitalize;
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    /* Links in Dropdown */
     .dropdown a {
         text-decoration: none;
-        border-radius: 5px;
-        user-select: none;
-        font-size: 16px;
-        cursor: pointer;
+        color: #333;
+        font-size: 1rem; /* Increased font size */
+        padding: 0.75rem; /* Increased padding */
         display: block;
-        width: 80%;
-        color: black;
-        font-weight: 400;
-        transition: background-color 0.2s;
+        border-radius: 0.25rem;
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
     }
+
     .dropdown a:hover {
         background-color: #e9f3fd;
-        color: black;
+        color: var(--primaryColorOne); /* Changed color to use CSS variable */
     }
-    .dropdown-container:focus-within .drop {
-        color: var(--primaryColorOne);
-        background-color: #e9f3fd;
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1rem;
+        }
+
+        .navbar-list {
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .dropdown {
+            min-width: auto;
+            width: 100%;
+        }
     }
-    button:hover {
-        background-color: #e9f3fd;
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>

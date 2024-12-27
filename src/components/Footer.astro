@@ -1,5 +1,6 @@
 ---
 import { type Footer } from "@interfaces/footer";
+import { getLangFromUrl } from "@i18n/utils";
 
 import Logo from "@components/Logo.astro";
 
@@ -8,42 +9,70 @@ import instagram_logo from "@assets/instagram_logo.svg?raw";
 import linkedin_logo from "@assets/linkedin_logo.svg?raw";
 import youtube_logo from "@assets/youtube_logo.svg?raw";
 
-const test_dict: Footer = {
-    explore: [
-        { text: "Blah blah blah blah blah blah", link: "2" },
-        { text: "nananana ananananana", link: "3" },
-        { text: "3", link: "4" },
-    ],
-    partner: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
-    legal: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
-    contact: [
-        { text: "1", link: "2" },
-        { text: "2", link: "3" },
-        { text: "3", link: "4" },
-    ],
+const lang = getLangFromUrl(Astro.url);
+
+const navDict: { [key: string]: { [key: string]: string } } = {
+    solutions: {
+        "employee-file-management": `/${lang}/employee-file-management`,
+        "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
+        "secure-document-archiving": `/${lang}/secure-document-archiving`,
+        "document-management": `/${lang}/document-management`,
+        "contract-management": `/${lang}/contract-management`,
+    },
+    products: {
+        "on-premises": `/${lang}/on-premises`,
+        cincom: `/${lang}/cincom`,
+        "content-capture": `/${lang}/content-capture`,
+        "electronic-safe": `/${lang}/electronic-safe`,
+        workflow: `/${lang}/workflow`,
+        archiving: `/${lang}/archiving`,
+        indexing: `/${lang}/indexing`,
+        "expand-ecm": `/${lang}/expand-ecm`,
+        "electronic-signature": `/${lang}/electronic-signature`,
+        "robust-search": `/${lang}/robust-search`,
+    },
+    integration: {
+        "teams-integration": `/${lang}/teams-integration`,
+        "email-integration": `/${lang}/email-integration`,
+        "data-integration": `/${lang}/data-integration`,
+        "office-integration": `/${lang}/office-integration`,
+    },
+    resources: {
+        ebook: `/${lang}/ebook`,
+        "case-studies": `/${lang}/case-studies`,
+        glossary: `/${lang}/glossary`,
+    },
+    company: {
+        "who-we-are": `/${lang}/who-we-are`,
+        "about-ecm": `/${lang}/about-ecm`,
+        "client-testimonials": `/${lang}/client-testimonials`,
+        contact: `/${lang}/contact`,
+    },
+    partners: {
+        "become-a-partner": `/${lang}/become-a-partner`,
+        evaluate: `/${lang}/evaluate`,
+    },
 };
 ---
 
 <nav class="footer">
     <ul class="main-list">
         {
-            Object.keys(test_dict).map((item) => (
+            Object.keys(navDict).map((category) => (
                 <li class="list-container">
                     <span class="list-title">
-                        {`${item.charAt(0).toUpperCase()}${item.slice(1).toLowerCase()}`}
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
                     </span>
                     <ul class="sub-list">
-                        {test_dict[item as keyof Footer].map((subItem) => (
+                        {Object.keys(navDict[category]).map((item) => (
                             <li>
-                                <a href={subItem.link}>{subItem.text}</a>
+                                <a href={navDict[category][item]}>
+                                    {item
+                                        .replace(/-/g, " ")
+                                        .replace(/\b\w/g, (c) =>
+                                            c.toUpperCase()
+                                        )}
+                                </a>
                             </li>
                         ))}
                     </ul>
@@ -71,7 +100,7 @@ const test_dict: Footer = {
         .footer {
             background-color: #f7f7f7;
             color: black;
-            padding: 40px;
+            padding: 60px; /* Increase padding */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -83,7 +112,8 @@ const test_dict: Footer = {
             display: flex;
             justify-content: center;
             padding: 0;
-            width: 60%;
+            width: 80%; /* Increase width */
+            gap: 3rem; /* Increase gap between footer columns */
         }
 
         .list-container {
@@ -93,8 +123,9 @@ const test_dict: Footer = {
         .list-title {
             color: var(--primaryColorOne);
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 20px; /* Increase margin-bottom */
             display: block;
+            font-size: 1.2rem; /* Increase font size */
         }
 
         .sub-list {
@@ -103,7 +134,7 @@ const test_dict: Footer = {
         }
 
         .sub-list li {
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* Increase margin-bottom */
         }
 
         .sub-list li a {
@@ -119,19 +150,19 @@ const test_dict: Footer = {
         .social-icons {
             display: flex;
             justify-content: left;
-            gap: 15px;
+            gap: 20px; /* Increase gap */
             width: 100%;
-            margin-top: 20px;
+            margin-top: 30px; /* Increase margin-top */
             margin-left: 40%;
         }
 
         .social-icons .icon {
-            margin-right: 15px;
+            margin-right: 20px; /* Increase margin-right */
         }
 
         .social-icons .icon img {
-            width: 24px;
-            height: 24px;
+            width: 28px; /* Increase size */
+            height: 28px; /* Increase size */
             transition: opacity 0.3s;
         }
 
@@ -141,8 +172,8 @@ const test_dict: Footer = {
 
         .copy {
             color: gray;
-            font-size: 12px; /* Make text smaller */
-            margin-top: 30px;
+            font-size: 14px; /* Increase font size */
+            margin-top: 40px; /* Increase margin-top */
         }
     </style>
 </nav>
