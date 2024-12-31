@@ -17,6 +17,11 @@ const InnerNavbar = ({ data }) => {
                         <button
                             key={`${category.sys.id}${index}`}
                             onClick={() => setInnerNavbarCategoryContent(index)}
+                            className={
+                                innerNavbarCategoryContent === index
+                                    ? "active"
+                                    : ""
+                            }
                         >
                             <a href={url} className="cta">
                                 {title}
@@ -32,13 +37,9 @@ const InnerNavbar = ({ data }) => {
                             <img
                                 src={cta?.fields?.cardImage?.fields?.file?.url}
                             />
-                            <button
-                                onClick={() =>
-                                    (window.location.href = cta.fields.url)
-                                }
-                            >
+                            <a href={cta.fields.url} className="cta">
                                 <span className="cta">{cta.fields.text}</span>
-                            </button>
+                            </a>
                         </div>
                     );
                 })}

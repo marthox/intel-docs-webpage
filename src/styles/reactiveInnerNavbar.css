@@ -32,6 +32,11 @@ body {
     border-bottom: 2px solid #ffc107;
 }
 
+.reactive-inner-navbar button.active {
+    color: #29272c;
+    border-bottom: 2px solid #ffc107;
+}
+
 .reactive-inner-navbar-container {
     display: flex;
     gap: 1rem;
@@ -76,21 +81,20 @@ body {
     max-height: 200px;
 }
 
-.cta-card button {
+.cta-card a.cta {
     display: block;
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 0;
     background-color: #29272c;
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
-    border: none;
-    cursor: pointer;
     text-transform: capitalize;
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
-.cta-card button:hover {
+.cta-card a.cta:hover {
     background-color: #ffbf23;
     color: #29272c;
 }
