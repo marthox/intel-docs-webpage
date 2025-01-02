@@ -13,12 +13,29 @@ const title = data.fields.title as string;
 const body = data.fields.body as string;
 const image = data.fields.image as Entry;
 const cta = data.fields.buttons as Entry[];
+const heroIcons = data.fields.heroIcons as Entry[];
 ---
 
 <section class="hero-banner">
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
         <p class="sub-hero-title">{body}</p>
+        <div class="hero-icons">
+            {
+                heroIcons &&
+                    heroIcons.map((icon: any, key: number) => {
+                        const title = icon.fields.title as string;
+                        const iconVectorUlr = icon.fields.heroIconVector.fields
+                            .file.url as string;
+                        return (
+                            <div class="hero-icon">
+                                <img src={iconVectorUlr} alt={title} />
+                                <p>{title}</p>
+                            </div>
+                        );
+                    })
+            }
+        </div>
         <div class="button-container">
             {
                 cta &&
@@ -38,6 +55,24 @@ const cta = data.fields.buttons as Entry[];
     {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>
 <style>
+    .hero-icons {
+        margin: 15px 0px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    .hero-icon {
+        display: flex;
+        align-items: center;
+    }
+    .hero-icon p {
+        margin-top: 5px;
+    }
+    .hero-icon img {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+    }
     .hero-text {
         display: flex;
         flex-direction: column;

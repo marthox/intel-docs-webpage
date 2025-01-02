@@ -8,8 +8,10 @@ const {
 
 <div class="comment-card" id={id}>
     <p class="comment-body">{body}</p>
-    <h3 class="comment-title">{title}</h3>
-    <span class="comment-meta">{jobAndCompany}</span>
+    <div>
+        <h3 class="comment-title">{title}</h3>
+        <span class="comment-meta">{jobAndCompany}</span>
+    </div>
 </div>
 
 <style>
@@ -26,6 +28,9 @@ const {
         transition:
             transform 0.3s ease,
             box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .comment-card:hover {
