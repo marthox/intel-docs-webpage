@@ -65,3 +65,49 @@ export const listBlogs = async (locale?: string) => {
 };
 
 export const getContentType = (entry: Entry) => entry.sys.contentType?.sys.id;
+
+let navbarDataCache: any = null;
+
+export async function getNavbarData(navbarId: string, lang: string) {
+    if (navbarDataCache) {
+        return navbarDataCache;
+    }
+
+    const navData = await client.getEntry(navbarId as string);
+
+    const logo = navData.fields.logo as Entry;
+    const logoData = logo.fields.file as { url: string };
+    const logoUrl = logoData.url;
+
+    const cta = navData.fields.navCta as Entry;
+
+    const navDict: { [key: string]: any } = {};
+    const navCategories = navData.fields.navCategories as Entry[];
+    for (let i = 0; i < navCategories.length; i++) {
+        const element = navCategories[i];
+        const category = element.fields.name as string;
+        const navInnerCategories = element.fields.navInnerCategory as Entry[];
+
+        navDict[category] = {};
+        for (let j = 0; j < navInnerCategories.length; j++) {
+            const element = await client.getEntry(navInnerCategories[j].sys.id);
+            const innerCategory = element.fields.name as string;
+            const innerCategoryNavLinks = element.fields.navLinks as Entry[];
+
+            navDict[category][innerCategory] = {};
+            for (let h = 0; h < innerCategoryNavLinks.length; h++) {
+                const element = innerCategoryNavLinks[h];
+                const linkName = element.fields.name as string;
+                let page = element.fields.page as Entry;
+                const pageId = page.sys.id;
+                page = await client.getEntry(pageId);
+
+                navDict[category][innerCategory][linkName] =
+                    `/${lang}/${page.fields.slug}`;
+            }
+        }
+    }
+
+    navbarDataCache = { logoUrl, cta, navDict };
+    return navbarDataCache;
+}
