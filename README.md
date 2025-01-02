@@ -1,3 +1,6 @@
+# Page Status
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1f28389c-38fa-4162-b530-b1a65f9c1090/deploy-status)](https://app.netlify.com/sites/inteldocs/deploys)
+
 # Astro Starter Kit: Basics
 
 ```sh
