@@ -32,13 +32,21 @@ const InnerNavbar = ({ data }) => {
             </nav>
             <div className="reactive-inner-navbar-container">
                 {data[innerNavbarCategoryContent].fields.cardCta.map((cta) => {
+                    const cardImage = cta.fields.cardImage.fields.file.url;
+                    const cardText = cta.fields.text;
+
+                    const ctaUrl = cta.fields.url;
+
+                    const ctaPage = cta.fields.ctaPage;
+                    const ctaPageSlug = ctaPage?.fields.slug;
+                    const ctaPageLang = ctaPage?.sys.locale;
+                    const ctaPageUrl = `/${ctaPageLang}/${ctaPageSlug}`;
+
                     return (
                         <div className="cta-card" key={cta.id}>
-                            <img
-                                src={cta?.fields?.cardImage?.fields?.file?.url}
-                            />
-                            <a href={cta.fields.url} className="cta">
-                                <span className="cta">{cta.fields.text}</span>
+                            <img src={cardImage} />
+                            <a href={ctaUrl || ctaPageUrl} className="cta">
+                                <span className="cta">{cardText}</span>
                             </a>
                         </div>
                     );

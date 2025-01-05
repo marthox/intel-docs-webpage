@@ -1,0 +1,64 @@
+/* Headings */
+.rich-text-content h1,
+.rich-text-content h2,
+.rich-text-content h3,
+.rich-text-content h4,
+.rich-text-content h5,
+.rich-text-content h6 {
+    color: var(--primaryColorOne);
+    margin: 1em 0 0.5em;
+}
+
+.rich-text-content h1 {
+    font-size: 2em;
+}
+
+.rich-text-content h2 {
+    font-size: 1.75em;
+}
+
+.rich-text-content h3 {
+    font-size: 1.5em;
+}
+
+.rich-text-content h4 {
+    font-size: 1.25em;
+}
+
+.rich-text-content h5 {
+    font-size: 1em;
+}
+
+.rich-text-content h6 {
+    font-size: 0.875em;
+}
+
+/* Paragraphs */
+.rich-text-content p {
+    margin: 0 0 1em;
+}
+
+/* Lists */
+.rich-text-content ul,
+.rich-text-content ol {
+    margin: 0 0 1em 1.5em;
+}
+
+.rich-text-content li {
+    margin: 0.5em 0;
+}
+
+/* Links */
+.rich-text-content a {
+    color: var(--primaryColorOne);
+    text-decoration: none;
+}
+
+.rich-text-content a:hover {
+    text-decoration: underline;
+}
+
+/* Bold text */
+.rich-text-content b {
+    font-weight: bold;
+}

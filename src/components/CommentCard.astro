@@ -8,9 +8,9 @@ const {
 
 <div class="comment-card" id={id}>
     <p class="comment-body">{body}</p>
-    <div>
-        <h3 class="comment-title">{title}</h3>
-        <span class="comment-meta">{jobAndCompany}</span>
+    <div class="comment-details">
+        <h3 class="comment-author">{title}</h3>
+        <span class="comment-role">{jobAndCompany}</span>
     </div>
 </div>
 
@@ -38,7 +38,7 @@ const {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .comment-title {
+    .comment-author {
         font-size: 1.25em;
         margin-bottom: 0.5em;
         color: var(--primaryColorTwo);
@@ -49,11 +49,13 @@ const {
         color: var(--secondaryColorOne);
         opacity: 0.8;
     }
-    .comment-meta {
+    .comment-role {
         font-size: 0.9em;
         color: var(--primaryColorTwo);
         opacity: 0.8;
         display: block;
+    }
+    .comment-details {
         margin-top: 1em;
     }
 </style>
