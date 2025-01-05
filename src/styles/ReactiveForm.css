@@ -1,0 +1,40 @@
+.reactiveform {
+    background-color: #f0f5f8; /* Updated background color */
+    padding: 50px;
+    border-radius: 1em;
+}
+
+.reactiveform label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.reactiveform input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.reactiveform button {
+    background-color: #00adff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.reactiveform button:hover {
+    background-color: #0099eb;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        grid-template-columns: 1fr;
+    }
+}

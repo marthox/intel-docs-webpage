@@ -1,5 +1,5 @@
-import * as contentful from "contentful";
 import "dotenv/config";
+import * as contentful from "contentful";
 import type { Entry } from "contentful";
 
 export const client = contentful.createClient({

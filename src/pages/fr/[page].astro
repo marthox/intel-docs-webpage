@@ -2,7 +2,6 @@
 import type { GetStaticPaths } from "astro";
 import type { Entry } from "contentful";
 
-import { client } from "@utils/contentful_utils";
 import Layout from "@layouts/Layout.astro";
 
 import HeroBanner from "@components/HeroBanner.astro";
@@ -13,6 +12,7 @@ import InnerNavbar from "@components/InnerNavbar.astro";
 import GetInTouchBanner from "@components/GetInTouchBanner.astro";
 import CommentContainer from "@components/CommentContainer.astro";
 import TextBanner from "@components/TextBanner.astro";
+import Form from "@components/Form.astro";
 
 import { getPages, getContentType } from "@utils/contentful_utils";
 
@@ -33,9 +33,8 @@ const elementTypes = {
     getInTouchBanner: GetInTouchBanner,
     commentContainer: CommentContainer,
     textBanner: TextBanner,
+    form: Form,
 };
-
-// const page_data = await client.getEntry(page_id);
 
 const page_id = page_data.sys.id as string;
 const locale = page_data.sys.locale as string;
