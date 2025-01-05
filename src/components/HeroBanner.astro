@@ -14,6 +14,7 @@ const body = data.fields.body as string;
 const image = data.fields.image as Entry;
 const cta = data.fields.buttons as Entry[];
 const heroIcons = data.fields.heroIcons as Entry[];
+const clientsCarrousel = data.fields.clientsCarrousel as Entry[];
 ---
 
 <section class="hero-banner">
@@ -54,6 +55,38 @@ const heroIcons = data.fields.heroIcons as Entry[];
     </div>
     {image && <BannerImage key={key} css_class="hero-image" data={image} />}
 </section>
+<div class="client-carrousel">
+    <div class="carrousel-wrapper">
+        {
+            clientsCarrousel &&
+                clientsCarrousel.map((client: any) => {
+                    const clientLogo = client.fields.file.url as string;
+                    return <img src={clientLogo} alt="client logo" />;
+                })
+        }
+        {
+            clientsCarrousel &&
+                clientsCarrousel.map((client: any) => {
+                    const clientLogo = client.fields.file.url as string;
+                    return <img src={clientLogo} alt="client logo" />;
+                })
+        }
+        {
+            clientsCarrousel &&
+                clientsCarrousel.map((client: any) => {
+                    const clientLogo = client.fields.file.url as string;
+                    return <img src={clientLogo} alt="client logo" />;
+                })
+        }
+        {
+            clientsCarrousel &&
+                clientsCarrousel.map((client: any) => {
+                    const clientLogo = client.fields.file.url as string;
+                    return <img src={clientLogo} alt="client logo" />;
+                })
+        }
+    </div>
+</div>
 <style>
     .hero-icons {
         margin: 15px 0px;
@@ -137,5 +170,39 @@ const heroIcons = data.fields.heroIcons as Entry[];
         .button-container {
             justify-content: center;
         }
+    }
+
+    .client-carrousel {
+        max-height: 72px;
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+        margin: 20px 0px;
+        background-color: rgb(250, 250, 250);
+    }
+
+    .carrousel-wrapper {
+        display: flex;
+        gap: 16px;
+        animation: scrollAnimation 30s linear infinite;
+        width: max-content;
+    }
+
+    /* Pause animation on hover */
+    .client-carrousel:hover .carrousel-wrapper {
+        animation-play-state: paused;
+    }
+
+    @keyframes scrollAnimation {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-50%));
+        }
+    }
+
+    .client-carrousel img {
+        height: 70px;
     }
 </style>
