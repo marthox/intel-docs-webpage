@@ -1,10 +1,16 @@
 import "@styles/ReactiveForm.css";
 
 import { useState } from "react";
-import { db, collection, addDoc, serverTimestamp } from "@utils/firebase_utils";
+import {
+    collection,
+    addDoc,
+    serverTimestamp,
+    getFirebaseDb,
+} from "@utils/firebase_utils";
 
-const ContactForm = ({ data }) => {
+const ContactForm = ({ data, firebaseConfig }) => {
     const [formData, setFormData] = useState({});
+    const db = getFirebaseDb(firebaseConfig);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -16,15 +22,14 @@ const ContactForm = ({ data }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
-            await addDoc(collection(db, "contacts"), {
+            await addDoc(collection(db, data.fields.id), {
                 ...formData,
                 timestamp: serverTimestamp(),
             });
 
             alert("Your message has been submitted!");
-            setFormData({}); // Clear form after submission
+            setFormData({});
         } catch (error) {
             alert("There was an error. Please try again.");
         }

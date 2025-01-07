@@ -1,14 +1,28 @@
 ---
-import { client } from "@utils/contentful_utils";
 import ReactiveForm from "@components/ReactiveForm.jsx";
+
+import { client } from "@utils/contentful_utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+import "dotenv/config";
 import "@styles/richText.css";
 
-const { key, id } = Astro.props;
+const { id } = Astro.props;
 
 const data = await client.getEntry(id);
 const formTitle = data.fields.formTitle;
 const formDescription = data.fields.formDescription as any;
+
+const embeddedForm = data.fields.embeddedForm;
+
+const firebaseConfig = {
+    apiKey: process.env.FIREBASE_API_KEY || "",
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN || "",
+    projectId: process.env.FIREBASE_PROJECT_ID || "",
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "",
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "",
+    appId: process.env.FIREBASE_APP_ID || "",
+};
 ---
 
 <div class="form-container">
@@ -16,7 +30,17 @@ const formDescription = data.fields.formDescription as any;
         <h1>{formTitle}</h1>
         <Fragment set:html={documentToHtmlString(formDescription)} />
     </div>
-    <ReactiveForm data={data} client:load />
+    {
+        embeddedForm ? (
+            <Fragment set:html={embeddedForm} />
+        ) : (
+            <ReactiveForm
+                data={data}
+                firebaseConfig={firebaseConfig}
+                client:load
+            />
+        )
+    }
 </div>
 
 <style>
