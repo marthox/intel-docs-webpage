@@ -3,11 +3,14 @@ import { client } from "@utils/contentful_utils";
 
 import BannerImage from "@components/BannerImage.astro";
 import BannerCta from "@components/BannerCta.astro";
+import { getLangFromUrl } from "@i18n/utils";
 import type { Entry } from "contentful";
+
+const lang = getLangFromUrl(Astro.url);
 
 const { key, id } = Astro.props;
 
-const data = await client.getEntry(id);
+const data = await client.getEntry(id, { locale: lang });
 
 const title = data.fields.title as string;
 const body = data.fields.body as string;
@@ -20,7 +23,14 @@ const clientsCarrousel = data.fields.clientsCarrousel as Entry[];
 <section class="hero-banner">
     <div class="hero-text">
         <h1 class="hero-title">{title}</h1>
-        <p class="sub-hero-title">{body}</p>
+        <p class="sub-hero-title">
+            <Fragment
+                set:html={body.replace(
+                    /\*(.*?)\*/g,
+                    '<span style="font-weight: bold;">$1</span>'
+                )}
+            />
+        </p>
         <div class="hero-icons">
             {
                 heroIcons &&
@@ -184,7 +194,7 @@ const clientsCarrousel = data.fields.clientsCarrousel as Entry[];
     .carrousel-wrapper {
         display: flex;
         gap: 16px;
-        animation: scrollAnimation 30s linear infinite;
+        animation: scrollAnimation 60s linear infinite;
         width: max-content;
     }
 

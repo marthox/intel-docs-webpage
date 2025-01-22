@@ -2,22 +2,28 @@
 import ReactiveInnerNavbar from "@components/ReactiveInnerNavbar";
 import { client } from "@utils/contentful_utils";
 import type { Entry } from "contentful";
+import { getLangFromUrl } from "@i18n/utils";
 
 const { key, id } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 
-const data = await client.getEntry(id);
+const data = await client.getEntry(id, { locale: lang });
 
 const innerNavbarCategory = data.fields.innerNavbarCategory as Entry[];
 const title = data.fields.title as string;
 
 const categoriesWithCta = await Promise.all(
     innerNavbarCategory?.map(async (category: Entry) => {
-        const categoryData = await client.getEntry(category.sys.id);
+        const categoryData = await client.getEntry(category.sys.id, {
+            locale: lang,
+        });
         const cardsCta = categoryData.fields.cardCta as Entry[];
 
         const cardCta = await Promise.all(
             cardsCta.map(async (cta: Entry) => {
-                const ctaData = await client.getEntry(cta.sys.id);
+                const ctaData = await client.getEntry(cta.sys.id, {
+                    locale: lang,
+                });
                 return ctaData;
             })
         );

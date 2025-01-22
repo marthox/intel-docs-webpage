@@ -1,89 +1,20 @@
 ---
 import BannerCta from "@components/BannerCta.astro";
 import { getLangFromUrl } from "@i18n/utils";
+import { getNavbarData } from "@utils/contentful_utils";
 import Logo from "@components/Logo.astro";
 
 import inteldocs_logo from "@assets/inteldocs_logo.svg?raw";
 
-const cta = {
-    fields: {
-        id: 1,
-        text: "Request a demo",
-        url: "/en/home",
-    },
-};
+if (!process.env.NAVBAR_ID) {
+    throw new Error("CONTENTFUL_NAVBAR_ID is not defined");
+}
 
 const lang = getLangFromUrl(Astro.url);
-
-const dummyNavDict: { [key: string]: any } = {
-    solutions: {
-        by_use_case: {
-            "employee-file-management": `/${lang}/employee-file-management`,
-            "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
-            "secure-document-archiving": `/${lang}/secure-document-archiving`,
-            "document-management": `/${lang}/document-management`,
-            "contract-management": `/${lang}/contract-management`,
-        },
-        by_industry: {
-            "employee-file-management": `/${lang}/employee-file-management`,
-            "automated-invoice-processing": `/${lang}/automated-invoice-processing`,
-            "secure-document-archiving": `/${lang}/secure-document-archiving`,
-            "document-management": `/${lang}/document-management`,
-            "contract-management": `/${lang}/contract-management`,
-        },
-        by_department: {
-            manufacturing: `/${lang}/manufacturing`,
-            "state-and-goverment": `/${lang}/state-and-goverment`,
-            "insurance-mutuals": `/${lang}/insurance-mutuals`,
-            services: `/${lang}/services`,
-        },
-    },
-    products: {
-        the_platform: {
-            "on-premises": `/${lang}/on-premises`,
-            cincom: `/${lang}/cincom`,
-        },
-        capabilities: {
-            "content-capture": `/${lang}/content-capture`,
-            "electronic-safe": `/${lang}/electronic-safe`,
-            workflow: `/${lang}/workflow`,
-            archiving: `/${lang}/archiving`,
-            indexing: `/${lang}/indexing`,
-            "expand-ecm": `/${lang}/expand-ecm`,
-            "electronic-signature": `/${lang}/electronic-signature`,
-            "robust-search": `/${lang}/robust-search`,
-        },
-        integration: {
-            "teams-integration": `/${lang}/teams-integration`,
-            "email-integration": `/${lang}/email-integration`,
-            "data-integration": `/${lang}/data-integration`,
-            "office-integration": `/${lang}/office-integration`,
-        },
-    },
-    resources: {
-        our_resources: {
-            ebook: `/${lang}/ebook`,
-            "case-studies": `/${lang}/case-studies`,
-            glossary: `/${lang}/glossary`,
-        },
-    },
-    company: {
-        "about-us": {
-            "who-we-are": `/${lang}/who-we-are`,
-            "about-ecm": `/${lang}/about-ecm`,
-            "client-testimonials": `/${lang}/client-testimonials`,
-            contact: `/${lang}/contact`,
-        },
-    },
-    partners: {
-        "our-partners": {
-            "become-a-partner": `/${lang}/become-a-partner`,
-            evaluate: `/${lang}/evaluate`,
-        },
-    },
-};
-
-const navDict = dummyNavDict;
+const { logoUrl, cta, navDict } = await getNavbarData(
+    process.env.NAVBAR_ID as string,
+    lang
+);
 export interface Props {
     class?: string;
 }
@@ -91,7 +22,7 @@ export interface Props {
 
 <nav class="mobile-navbar">
     <div class="navbar-header">
-        <a href="/en/home">
+        <a href=`/${lang}/home`>
             <Logo
                 css_class="header_logo"
                 logo={inteldocs_logo}

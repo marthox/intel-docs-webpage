@@ -2,18 +2,18 @@
 import { client } from "@utils/contentful_utils";
 import type { Entry } from "contentful";
 
+import { getLangFromUrl } from "@i18n/utils";
+
 const { key, id } = Astro.props;
-
-const data = await client.getEntry(id);
-
+const lang = getLangFromUrl(Astro.url);
+const data = await client.getEntry(id, { locale: lang });
 const ctas_arr = data.fields.ctas as Entry[];
-
 const { title: title } = data.fields;
 
 const ctas = await Promise.all(
     ctas_arr.map(async (cta: { sys: { id: string } }) => {
         const ctaId = cta.sys.id;
-        const ctaData = await client.getEntry(ctaId);
+        const ctaData = await client.getEntry(ctaId, { locale: lang });
         return ctaData;
     })
 );

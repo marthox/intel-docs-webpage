@@ -1,12 +1,14 @@
 ---
 import { client } from "@utils/contentful_utils";
-
+import { getLangFromUrl } from "@i18n/utils";
 import BannerImage from "@components/BannerImage.astro";
 import BannerCta from "@components/BannerCta.astro";
 
 const { key, id } = Astro.props;
 
-const data = await client.getEntry(id);
+const lang = getLangFromUrl(Astro.url);
+
+const data = await client.getEntry(id, { locale: lang });
 
 const {
     fields: {

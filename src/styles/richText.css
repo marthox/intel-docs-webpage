@@ -39,7 +39,11 @@
 }
 
 /* Lists */
-.rich-text-content ul,
+.rich-text-content ul {
+    list-style-type: disc;
+    margin: 0 0 1em 1.5em;
+}
+
 .rich-text-content ol {
     margin: 0 0 1em 1.5em;
 }

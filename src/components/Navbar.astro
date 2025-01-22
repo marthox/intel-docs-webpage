@@ -3,6 +3,7 @@ import { type Navbar } from "@interfaces/navbar";
 import BannerCta from "@components/BannerCta.astro";
 import { getLangFromUrl } from "@i18n/utils";
 import { getNavbarData } from "@utils/contentful_utils";
+import LanguageButton from "@components/LanguageButton.astro";
 
 if (!process.env.NAVBAR_ID) {
     throw new Error("CONTENTFUL_NAVBAR_ID is not defined");
@@ -70,7 +71,14 @@ const { logoUrl, cta, navDict } = await getNavbarData(
             ))
         }
     </ul>
-    {cta?.fields && <BannerCta data={cta} key={1} css_class="navbar-button" />}
+    <div class="navbar-buttons">
+        {
+            cta?.fields && (
+                <BannerCta data={cta} key={1} css_class="navbar-button" />
+            )
+        }
+        <LanguageButton color="white" />
+    </div>
 </nav>
 
 <script>
@@ -149,6 +157,11 @@ const { logoUrl, cta, navDict } = await getNavbarData(
 
     .navbar-list li {
         position: relative;
+    }
+
+    .navbar-buttons {
+        display: flex;
+        gap: 1rem;
     }
 
     .navbar-button {

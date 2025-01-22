@@ -1,6 +1,7 @@
 ---
 import { client } from "@utils/contentful_utils";
 import { getLangFromUrl } from "@i18n/utils";
+const lang = getLangFromUrl(Astro.url);
 
 const { key, data, css_class } = Astro.props;
 
@@ -10,10 +11,9 @@ const {
 
 const ctaPage =
     data.fields.ctaPage?.sys.id &&
-    (await client.getEntry(data.fields.ctaPage.sys.id));
+    (await client.getEntry(data.fields.ctaPage.sys.id, { locale: lang }));
 
 const ctaPageUrl = ctaPage?.fields.slug;
-const lang = getLangFromUrl(Astro.url);
 
 const pageUrl = ctaPageUrl ? `/${lang}/${ctaPageUrl}` : url;
 ---

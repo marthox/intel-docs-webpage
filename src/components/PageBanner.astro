@@ -3,10 +3,13 @@ import { client } from "@utils/contentful_utils";
 
 import BannerImage from "@components/BannerImage.astro";
 import BannerCta from "@components/BannerCta.astro";
+import { getLangFromUrl } from "@i18n/utils";
 
 const { key, id } = Astro.props;
 
-const data = await client.getEntry(id);
+const lang = getLangFromUrl(Astro.url);
+
+const data = await client.getEntry(id, { locale: lang });
 
 const {
     fields: { title: title, body: body, image: image, cta: cta },
@@ -32,6 +35,7 @@ const reverse = key % 2 === 0;
         align-items: flex-start;
         justify-content: center;
         background-color: var(--secondaryColorOne);
+        gap: 1rem;
     }
     .page-banner.reverse {
         flex-direction: row-reverse;

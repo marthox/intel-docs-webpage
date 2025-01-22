@@ -3,13 +3,15 @@ import ReactiveForm from "@components/ReactiveForm.jsx";
 
 import { client } from "@utils/contentful_utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-
+import { getLangFromUrl } from "@i18n/utils";
 import "dotenv/config";
 import "@styles/richText.css";
 
 const { id } = Astro.props;
 
-const data = await client.getEntry(id);
+const lang = getLangFromUrl(Astro.url);
+
+const data = await client.getEntry(id, { locale: lang });
 const formTitle = data.fields.formTitle;
 const formDescription = data.fields.formDescription as any;
 
@@ -26,7 +28,7 @@ const firebaseConfig = {
 ---
 
 <div class="form-container">
-    <div>
+    <div class="rich-text-content">
         <h1>{formTitle}</h1>
         <Fragment set:html={documentToHtmlString(formDescription)} />
     </div>
@@ -53,7 +55,6 @@ const firebaseConfig = {
     .rich-text-content {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
     }
 
     @media (max-width: 768px) {

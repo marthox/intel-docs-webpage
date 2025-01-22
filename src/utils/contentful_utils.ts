@@ -73,7 +73,7 @@ export async function getNavbarData(navbarId: string, lang: string) {
         return navbarDataCache;
     }
 
-    const navData = await client.getEntry(navbarId as string);
+    const navData = await client.getEntry(navbarId as string, { locale: lang });
 
     const logo = navData.fields.logo as Entry;
     const logoData = logo.fields.file as { url: string };
@@ -90,7 +90,10 @@ export async function getNavbarData(navbarId: string, lang: string) {
 
         navDict[category] = {};
         for (let j = 0; j < navInnerCategories.length; j++) {
-            const element = await client.getEntry(navInnerCategories[j].sys.id);
+            const element = await client.getEntry(
+                navInnerCategories[j].sys.id,
+                { locale: lang }
+            );
             const innerCategory = element.fields.name as string;
             const innerCategoryNavLinks = element.fields.navLinks as Entry[];
 
@@ -100,7 +103,7 @@ export async function getNavbarData(navbarId: string, lang: string) {
                 const linkName = element.fields.name as string;
                 let page = element.fields.page as Entry;
                 const pageId = page.sys.id;
-                page = await client.getEntry(pageId);
+                page = await client.getEntry(pageId, { locale: lang });
 
                 navDict[category][innerCategory][linkName] =
                     `/${lang}/${page.fields.slug}`;

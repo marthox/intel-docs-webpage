@@ -5,16 +5,16 @@ import { listBlogs } from "@utils/contentful_utils";
 import { getLangFromUrl } from "@i18n/utils";
 import Card from "@components/Card.astro";
 
+const lang = getLangFromUrl(Astro.url);
 const { key, id } = Astro.props;
 
-const data = await client.getEntry(id);
+const data = await client.getEntry(id, { locale: lang });
 
 const {
     fields: { title: title },
 } = data;
 
 const blogs = await listBlogs();
-const lang = getLangFromUrl(Astro.url);
 ---
 
 <h2>{title}</h2>

@@ -1,11 +1,14 @@
 ---
 import CommentCard from "@components/CommentCard.astro";
 import { client } from "@utils/contentful_utils";
+import { getLangFromUrl } from "@i18n/utils";
 import type { Entry } from "contentful";
+
+const lang = getLangFromUrl(Astro.url);
 
 const { key, id } = Astro.props;
 
-const data = await client.getEntry(id);
+const data = await client.getEntry(id, { locale: lang });
 
 const { title: title } = data.fields;
 
@@ -14,7 +17,7 @@ const commentsCard = data.fields.commentsCards as Entry[];
 const commentCards = await Promise.all(
     commentsCard.map(async (comment: { sys: { id: string } }) => {
         const commentId = comment.sys.id;
-        const commentData = await client.getEntry(commentId);
+        const commentData = await client.getEntry(commentId, { locale: lang });
         return commentData;
     })
 );
@@ -72,7 +75,7 @@ const commentCards = await Promise.all(
     .card-wrapper {
         display: flex;
         gap: 16px;
-        animation: scrollAnimation 15s linear infinite;
+        animation: scrollAnimation 30s linear infinite;
         width: max-content;
     }
 
