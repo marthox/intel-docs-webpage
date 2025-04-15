@@ -16,6 +16,7 @@ export const ui = {
         "inner_nav.music": "Music",
         "inner_nav.history": "History",
         "inner_nav.curriculum": "Curriculum",
+        "form.send": "Send",
     },
     fr: {
         "nav.home": "Inicio",
@@ -27,5 +28,6 @@ export const ui = {
         "inner_nav.music": "Música",
         "inner_nav.history": "Historia",
         "inner_nav.curriculum": "Currículum",
+        "form.send": "Enviar",
     },
 } as const;
