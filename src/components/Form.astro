@@ -1,11 +1,10 @@
 ---
-import ReactiveForm from "@components/ReactiveForm.jsx";
-
 import { client } from "@utils/contentful_utils";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { getLangFromUrl } from "@i18n/utils";
 import "dotenv/config";
 import "@styles/richText.css";
+import "@styles/ReactiveForm.css";
 
 const { id } = Astro.props;
 
@@ -16,6 +15,7 @@ const formTitle = data.fields.formTitle;
 const formDescription = data.fields.formDescription as any;
 
 const embeddedForm = data.fields.embeddedForm;
+const formFields = data?.fields?.formFields || ([] as any);
 ---
 
 <div class="form-container">
@@ -27,7 +27,25 @@ const embeddedForm = data.fields.embeddedForm;
         embeddedForm ? (
             <Fragment set:html={embeddedForm} />
         ) : (
-            <ReactiveForm data={data} client:load />
+            <form class="reactiveform" data-netlify="true">
+                {formFields.map((data: any) => {
+                    const fields = data.fields;
+                    const { id, type, text, placeholder } = fields;
+                    return (
+                        <div id={id}>
+                            <label for={id}>{text}</label>
+                            <input
+                                type={type}
+                                id={id}
+                                name={id}
+                                placeholder={placeholder}
+                            />
+                        </div>
+                    );
+                })}
+
+                <button type="submit">Submit</button>
+            </form>
         )
     }
 </div>
