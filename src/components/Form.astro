@@ -27,7 +27,11 @@ const formFields = data?.fields?.formFields || ([] as any);
         embeddedForm ? (
             <Fragment set:html={embeddedForm} />
         ) : (
-            <form class="reactiveform" data-netlify="true">
+            <form
+                class="reactiveform"
+                data-netlify="true"
+                action={`/${lang}/thank-you`}
+            >
                 {formFields.map((data: any) => {
                     const fields = data.fields;
                     const { id, type, text, placeholder } = fields;

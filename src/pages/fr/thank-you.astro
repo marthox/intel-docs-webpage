@@ -1,0 +1,112 @@
+---
+import IntelDocsLogo from "@assets/inteldocs-logo.png";
+---
+
+<head>
+    <meta charset="UTF-8" />
+</head>
+
+<main>
+    <div class="thank-you-container">
+        <div class="inteldocs-logo">
+            <img src={IntelDocsLogo.src} alt="IntelDocs Logo" height="100" />
+        </div>
+        <div class="main-content">
+            <div>
+                <span class="blue">Merci</span> de faire confiance à Intel<strong
+                    >Docs</strong
+                >
+            </div>
+            <div class="vertical-divider"></div>
+            <div>
+                <span class="small-text"
+                    >Prêt à <strong>transformer vos documents</strong></span
+                > en votre avantage ?
+            </div>
+        </div>
+        <div class="cta-context">
+            <hr class="divider-line" />
+            <div class="small-text">
+                Programmons un appel rapide pour comprendre vos besoins.
+            </div>
+        </div>
+
+        <!-- Calendly link widget begin -->
+        <link
+            href="https://assets.calendly.com/assets/external/widget.css"
+            rel="stylesheet"
+        />
+        <script
+            src="https://assets.calendly.com/assets/external/widget.js"
+            type="text/javascript"
+            async></script>
+        <a
+            class="calendly-button"
+            href=""
+            onclick="Calendly.initPopupWidget({url: 'https://calendly.com/inteldocs-corporate'});return false;"
+            ><strong>Planifiez</strong> votre réunion <strong
+                >maintenant!</strong
+            >
+        </a>
+        <!-- Calendly link widget end -->
+    </div>
+</main>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        font-size: 1.8rem;
+        font-family: "NUE Helvetica", Arial, Helvetica, sans-serif;
+        font-weight: normal;
+    }
+    .thank-you-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        width: 700px;
+    }
+    .vertical-divider {
+        width: 5px;
+        height: 100%;
+        background-color: #00adff;
+        margin: 0 1rem;
+    }
+    .divider-line {
+        width: 100%;
+        border: none;
+        border-top: 2px dashed #ccc;
+        margin: 2rem 0;
+    }
+    .cta-context {
+        width: 350px;
+    }
+    .main-content {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+    }
+    .small-text {
+        margin: auto;
+        font-size: 1.2rem;
+        width: 300px;
+    }
+    .blue {
+        color: #00adff;
+        font-weight: bold;
+    }
+    .calendly-button {
+        inline-size: 300px;
+        color: black;
+        background-color: #ffbf23;
+        padding: 1rem 2rem;
+        border-radius: 35px;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+</style>
