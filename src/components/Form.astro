@@ -34,7 +34,7 @@ const formFields = data?.fields?.formFields || ([] as any);
             >
                 {formFields.map((data: any) => {
                     const fields = data.fields;
-                    const { id, type, text, placeholder } = fields;
+                    const { id, type, text, placeholder, required } = fields;
                     return (
                         <div id={id}>
                             <label for={id}>{text}</label>
@@ -43,7 +43,7 @@ const formFields = data?.fields?.formFields || ([] as any);
                                 id={id}
                                 name={id}
                                 placeholder={placeholder}
-                                required
+                                required={required}
                             />
                         </div>
                     );
