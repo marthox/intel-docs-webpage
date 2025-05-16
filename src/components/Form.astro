@@ -32,8 +32,10 @@ const formFields = data?.fields?.formFields || ([] as any);
                 name="contact"
                 data-netlify="true"
                 method="POST"
-                action={`/en/thank-you`}
+                action={`/${lang}/thank-you`}
             >
+                <input type="hidden" name="form-name" value="contact_form" />
+
                 {formFields.map((data: any) => {
                     const fields = data.fields;
                     const { id, type, text, placeholder, required } = fields;
