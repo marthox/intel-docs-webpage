@@ -1,48 +1,9 @@
-import { useState } from "react";
-
-function encode(data) {
-    return Object.keys(data)
-        .map(
-            (key) =>
-                encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-        )
-        .join("&");
-}
-
 export default function Form({
     formTitle,
     formDescription,
     formFields,
     lang = "en",
 }) {
-    const [submitting, setSubmitting] = useState(false);
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-        const formData = new window.FormData(form);
-        const data = {};
-        for (const [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-        data["form-name"] = form.getAttribute("name");
-        alert("Submitting data: " + JSON.stringify(data, null, 2));
-        setSubmitting(true);
-        try {
-            await fetch("/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: encode(data),
-            });
-            window.location.href = `/${lang}/thank-you`;
-        } catch (error) {
-            alert("Submission failed: " + error);
-            setSubmitting(false);
-        }
-    };
-
     return (
         <div className="form-container" data-lang={lang}>
             <div className="rich-text-content">
@@ -52,10 +13,10 @@ export default function Form({
             <form
                 className="reactiveform"
                 name="contact"
-                data-netlify="true"
                 method="POST"
                 netlify-honeypot="bot-field"
-                onSubmit={handleSubmit}
+                action={`/${lang}/thank-you`}
+                netlify
             >
                 <p className="hidden">
                     <label>
@@ -80,9 +41,7 @@ export default function Form({
                         </div>
                     );
                 })}
-                <button type="submit" disabled={submitting}>
-                    {submitting ? "Submitting..." : "Submit"}
-                </button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     );

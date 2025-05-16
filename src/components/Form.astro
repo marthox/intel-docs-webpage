@@ -21,7 +21,6 @@ const formFields = data?.fields?.formFields || ([] as any);
         <Fragment set:html={embeddedForm} />
     ) : (
         <ReactForm
-            client:load
             formTitle={formTitle}
             formDescription={documentToHtmlString(formDescription)}
             formFields={formFields}
