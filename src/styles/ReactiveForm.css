@@ -33,8 +33,23 @@
     background-color: #0099eb;
 }
 
+.hidden {
+    display: none;
+}
+.form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 1em;
+    gap: 1rem;
+}
+.rich-text-content {
+    display: flex;
+    flex-direction: column;
+}
+
 @media (max-width: 768px) {
     .form-container {
+        padding: 20px;
         grid-template-columns: 1fr;
     }
 }

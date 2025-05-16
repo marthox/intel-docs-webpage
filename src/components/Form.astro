@@ -5,125 +5,27 @@ import { getLangFromUrl } from "@i18n/utils";
 import "dotenv/config";
 import "@styles/richText.css";
 import "@styles/ReactiveForm.css";
+import ReactForm from "@components/ReactForm.jsx";
 
 const { id } = Astro.props;
-
 const lang = getLangFromUrl(Astro.url);
-
 const data = await client.getEntry(id, { locale: lang });
 const formTitle = data.fields.formTitle;
 const formDescription = data.fields.formDescription as any;
-
 const embeddedForm = data.fields.embeddedForm;
 const formFields = data?.fields?.formFields || ([] as any);
 ---
 
-<div class="form-container" data-lang={lang}>
-    <div class="rich-text-content">
-        <h1>{formTitle}</h1>
-        <Fragment set:html={documentToHtmlString(formDescription)} />
-    </div>
-    {
-        embeddedForm ? (
-            <Fragment set:html={embeddedForm} />
-        ) : (
-            <form
-                class="reactiveform"
-                data-netlify="true"
-                name="contact"
-                method="POST"
-                onsubmit="handleSubmit(event)"
-                netlify-honeypot="bot-field"
-            >
-                <p class="hidden">
-                    <label>
-                        Don't fill this out if you're human:{" "}
-                        <input name="bot-field" />
-                    </label>
-                </p>
-                <input type="hidden" name="form-name" value="contact" />
-                {formFields.map((data: any) => {
-                    const fields = data.fields;
-                    const { id, type, text, placeholder, required } = fields;
-                    return (
-                        <div id={id}>
-                            <label for={id}>{text}</label>
-                            <input
-                                type="text"
-                                id={id}
-                                name={id}
-                                placeholder={placeholder}
-                                required={required}
-                            />
-                        </div>
-                    );
-                })}
-                <button type="submit">Submit</button>
-            </form>
-        )
-    }
-</div>
-
-<script is:inline>
-    function encode(data) {
-        return Object.keys(data)
-            .map(
-                (key) =>
-                    encodeURIComponent(key) +
-                    "=" +
-                    encodeURIComponent(data[key])
-            )
-            .join("&");
-    }
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        const data = {};
-        for (const [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-        // Netlify expects 'form-name' to match the form's name attribute
-        data["form-name"] = form.getAttribute("name");
-        // Get lang from data attribute
-        const lang = document.querySelector(".form-container").dataset.lang;
-        alert("Submitting data: " + JSON.stringify(data, null, 2));
-        try {
-            await fetch("/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: encode(data),
-            });
-            window.location = `/${lang}/thank-you`;
-        } catch (error) {
-            alert("Submission failed: " + error);
-        }
-    }
-</script>
-
-<style>
-    .hidden {
-        display: none;
-    }
-    .form-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-radius: 1em;
-        gap: 1rem;
-    }
-
-    .rich-text-content {
-        display: flex;
-        flex-direction: column;
-    }
-
-    @media (max-width: 768px) {
-        .form-container {
-            padding: 20px;
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
+{
+    embeddedForm ? (
+        <Fragment set:html={embeddedForm} />
+    ) : (
+        <ReactForm
+            client:load
+            formTitle={formTitle}
+            formDescription={documentToHtmlString(formDescription)}
+            formFields={formFields}
+            lang={lang}
+        />
+    )
+}
