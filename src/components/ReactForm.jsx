@@ -12,7 +12,7 @@ export default function Form({
             </div>
             <form
                 className="reactiveform"
-                name="contact"
+                name={formTitle}
                 method="POST"
                 netlify-honeypot="bot-field"
                 action={`/${lang}/thank-you`}
