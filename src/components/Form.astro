@@ -29,6 +29,7 @@ const formFields = data?.fields?.formFields || ([] as any);
         ) : (
             <form
                 class="reactiveform"
+                name="contact"
                 data-netlify="true"
                 action={`/${lang}/thank-you`}
             >
@@ -41,7 +42,7 @@ const formFields = data?.fields?.formFields || ([] as any);
                             <input
                                 type={type}
                                 id={id}
-                                name={id}
+                                name={type}
                                 placeholder={placeholder}
                                 required={required}
                             />
