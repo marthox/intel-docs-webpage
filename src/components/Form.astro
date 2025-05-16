@@ -10,6 +10,7 @@ import ReactForm from "@components/ReactForm.jsx";
 const { id } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const data = await client.getEntry(id, { locale: lang });
+const formId = data.fields.formId;
 const formTitle = data.fields.formTitle;
 const formDescription = data.fields.formDescription as any;
 const embeddedForm = data.fields.embeddedForm;
@@ -21,6 +22,7 @@ const formFields = data?.fields?.formFields || ([] as any);
         <Fragment set:html={embeddedForm} />
     ) : (
         <ReactForm
+            formId={formId}
             formTitle={formTitle}
             formDescription={documentToHtmlString(formDescription)}
             formFields={formFields}

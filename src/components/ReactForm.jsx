@@ -1,4 +1,5 @@
 export default function Form({
+    formId,
     formTitle,
     formDescription,
     formFields,
@@ -12,7 +13,7 @@ export default function Form({
             </div>
             <form
                 className="reactiveform"
-                name={formTitle}
+                name={formId}
                 method="POST"
                 netlify-honeypot="bot-field"
                 action={`/${lang}/thank-you`}
