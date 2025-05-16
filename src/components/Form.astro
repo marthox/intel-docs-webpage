@@ -18,36 +18,7 @@ const embeddedForm = data.fields.embeddedForm;
 const formFields = data?.fields?.formFields || ([] as any);
 ---
 
-<script is:inline>
-    function encode(data) {
-        return Object.keys(data)
-            .map(
-                (key) =>
-                    encodeURIComponent(key) +
-                    "=" +
-                    encodeURIComponent(data[key])
-            )
-            .join("&");
-    }
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        const data = {};
-        for (const [key, value] of formData.entries()) {
-            data[key] = value;
-        }
-        await fetch(form.action, {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({ "form-name": form.getAttribute("name"), ...data }),
-        });
-        window.location = form.action;
-    }
-</script>
-
-<div class="form-container">
+<div class="form-container" data-lang={lang}>
     <div class="rich-text-content">
         <h1>{formTitle}</h1>
         <Fragment set:html={documentToHtmlString(formDescription)} />
@@ -58,12 +29,11 @@ const formFields = data?.fields?.formFields || ([] as any);
         ) : (
             <form
                 class="reactiveform"
-                name="contact"
                 data-netlify="true"
+                name="contact"
                 method="POST"
-                action={`/${lang}/thank-you`}
-                netlify-honeypot="bot-field"
                 onsubmit="handleSubmit(event)"
+                netlify-honeypot="bot-field"
             >
                 <p class="hidden">
                     <label>
@@ -72,7 +42,6 @@ const formFields = data?.fields?.formFields || ([] as any);
                     </label>
                 </p>
                 <input type="hidden" name="form-name" value="contact" />
-
                 {formFields.map((data: any) => {
                     const fields = data.fields;
                     const { id, type, text, placeholder, required } = fields;
@@ -94,6 +63,46 @@ const formFields = data?.fields?.formFields || ([] as any);
         )
     }
 </div>
+
+<script is:inline>
+    function encode(data) {
+        return Object.keys(data)
+            .map(
+                (key) =>
+                    encodeURIComponent(key) +
+                    "=" +
+                    encodeURIComponent(data[key])
+            )
+            .join("&");
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = {};
+        for (const [key, value] of formData.entries()) {
+            data[key] = value;
+        }
+        // Netlify expects 'form-name' to match the form's name attribute
+        data["form-name"] = form.getAttribute("name");
+        // Get lang from data attribute
+        const lang = document.querySelector(".form-container").dataset.lang;
+        alert("Submitting data: " + JSON.stringify(data, null, 2));
+        try {
+            await fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: encode(data),
+            });
+            window.location = `/${lang}/thank-you`;
+        } catch (error) {
+            alert("Submission failed: " + error);
+        }
+    }
+</script>
 
 <style>
     .hidden {
