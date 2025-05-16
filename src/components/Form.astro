@@ -30,8 +30,9 @@ const formFields = data?.fields?.formFields || ([] as any);
             <form
                 class="reactiveform"
                 name="contact"
-                data-netlify="true"
                 action={`/${lang}/thank-you`}
+                data-netlify="true"
+                method="POST"
             >
                 {formFields.map((data: any) => {
                     const fields = data.fields;
