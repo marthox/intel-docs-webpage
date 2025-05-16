@@ -35,22 +35,22 @@ const formFields = data?.fields?.formFields || ([] as any);
                 action={`/${lang}/thank-you`}
                 netlify-honeypot="bot-field"
             >
-                <input type="hidden" name="form-name" value="contact_form" />
+                <p class="hidden">
+                    <label>
+                        Don't fill this out if you're human:{" "}
+                        <input name="bot-field" />
+                    </label>
+                </p>
+                <input type="hidden" name="form-name" value="contact" />
 
                 {formFields.map((data: any) => {
                     const fields = data.fields;
                     const { id, type, text, placeholder, required } = fields;
-                    <p class="hidden">
-                        <label>
-                            Don't fill this out if you're human:{" "}
-                            <input name="bot-field" />
-                        </label>
-                    </p>;
                     return (
                         <div id={id}>
                             <label for={id}>{text}</label>
                             <input
-                                type={type}
+                                type="text"
                                 id={id}
                                 name={id}
                                 placeholder={placeholder}
@@ -59,7 +59,6 @@ const formFields = data?.fields?.formFields || ([] as any);
                         </div>
                     );
                 })}
-
                 <button type="submit">Submit</button>
             </form>
         )
