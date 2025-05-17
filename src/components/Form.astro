@@ -30,6 +30,7 @@ const formFields = data?.fields?.formFields || ([] as any);
             <form
                 class="reactiveform"
                 method="POST"
+                action={`/${lang}/thank-you`}
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 data-lang={lang}
@@ -62,34 +63,6 @@ const formFields = data?.fields?.formFields || ([] as any);
         )
     }
 </div>
-
-<!-- <script>
-    // @ts-nocheck
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const myForm = event.target;
-        const formData = new FormData(myForm);
-        const lang = myForm.getAttribute("data-lang");
-
-        // Debug: log all form fields and their values
-        for (const [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
-
-        await fetch("/", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString(),
-        })
-            .then(() => {
-                console.log("Form successfully submitted");
-            })
-            .catch((error) => alert(error));
-    };
-
-    document.querySelector("form")?.addEventListener("submit", handleSubmit);
-</script> -->
 
 <style>
     .hidden {
