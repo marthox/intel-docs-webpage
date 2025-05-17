@@ -33,6 +33,7 @@ const formFields = data?.fields?.formFields || ([] as any);
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 data-lang={lang}
+                name={formId}
             >
                 <input type="hidden" name="form-name" value={formId} />
                 <p class="hidden">
