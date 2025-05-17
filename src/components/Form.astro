@@ -11,7 +11,7 @@ export const prerender = true;
 const { id } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const data = await client.getEntry(id, { locale: lang });
-const formId = data.fields.formId as string;
+const formId = data.fields.id as string;
 const formTitle = data.fields.formTitle as string;
 const formDescription = data.fields.formDescription as any;
 const embeddedForm = data.fields.embeddedForm;
@@ -29,12 +29,12 @@ const formFields = data?.fields?.formFields || ([] as any);
         ) : (
             <form
                 class="reactiveform"
-                name={formId}
                 method="POST"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 data-lang={lang}
             >
+                <input type="hidden" name="form-name" value={formId} />
                 <p class="hidden">
                     <label>
                         Don't fill this out if you're human:{" "}
@@ -72,6 +72,11 @@ const formFields = data?.fields?.formFields || ([] as any);
         const formData = new FormData(myForm);
         const lang = myForm.getAttribute("data-lang");
 
+        // Debug: log all form fields and their values
+        for (const [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
         await fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -79,12 +84,9 @@ const formFields = data?.fields?.formFields || ([] as any);
         })
             .then(() => {
                 console.log("Form successfully submitted");
+                window.location.href = `/${lang}/thank-you`;
             })
             .catch((error) => alert(error));
-
-        // Redirect to the thank you page
-        const redirectUrl = `/${lang}/thank-you`;
-        window.location.href = redirectUrl;
     };
 
     document.querySelector("form")?.addEventListener("submit", handleSubmit);
