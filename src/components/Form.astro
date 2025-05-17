@@ -34,7 +34,6 @@ const formFields = data?.fields?.formFields || ([] as any);
                 netlify-honeypot="bot-field"
                 data-lang={lang}
                 name={formId}
-                action="/en/thank-you/"
             >
                 <input type="hidden" name="form-name" value={formId} />
                 <p class="hidden">
@@ -64,7 +63,7 @@ const formFields = data?.fields?.formFields || ([] as any);
     }
 </div>
 
-<!-- <script>
+<script>
     // @ts-nocheck
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -85,13 +84,12 @@ const formFields = data?.fields?.formFields || ([] as any);
         })
             .then(() => {
                 console.log("Form successfully submitted");
-                window.location.href = `/${lang}/thank-you`;
             })
             .catch((error) => alert(error));
     };
 
     document.querySelector("form")?.addEventListener("submit", handleSubmit);
-</script> -->
+</script>
 
 <style>
     .hidden {
