@@ -6,6 +6,8 @@ import "dotenv/config";
 import "@styles/richText.css";
 import "@styles/ReactiveForm.css";
 
+export const prerender = true;
+
 const { id } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const data = await client.getEntry(id, { locale: lang });
@@ -63,23 +65,26 @@ const formFields = data?.fields?.formFields || ([] as any);
 
 <script>
     // @ts-nocheck
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const myForm = event.target;
         const formData = new FormData(myForm);
         const lang = myForm.getAttribute("data-lang");
 
-        fetch("/", {
+        await fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString(),
         })
             .then(() => {
                 console.log("Form successfully submitted");
-                window.location.href = `/${lang}/thank-you`;
             })
             .catch((error) => alert(error));
+
+        // Redirect to the thank you page
+        const redirectUrl = `/${lang}/thank-you`;
+        window.location.href = redirectUrl;
     };
 
     document.querySelector("form")?.addEventListener("submit", handleSubmit);
